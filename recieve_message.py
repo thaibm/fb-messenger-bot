@@ -22,8 +22,7 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
 
-                    book = Book.first
-                    send_message(sender_id, book.name)
+                    send_message(sender_id, message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
