@@ -5,7 +5,7 @@ import json
 import requests
 from flask import Flask, request
 from database import db, Book
-
+from models.book import BookRecord
 def recieve(data):
 
     if data["object"] == "page":
@@ -22,7 +22,7 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
 
-                    book = Book.first
+                    book = BookRecord.get(1)
                     send_message(sender_id, book.name)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
