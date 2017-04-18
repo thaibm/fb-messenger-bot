@@ -6,6 +6,7 @@ import requests
 from flask import Flask, request
 from database import db, Book
 from models.book import BookRecord
+
 def recieve(data):
 
     if data["object"] == "page":
