@@ -6,6 +6,7 @@ import requests
 from flask import Flask, request
 from recieve_message import recieve
 app = Flask(__name__)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 
 @app.route('/', methods=['GET'])
