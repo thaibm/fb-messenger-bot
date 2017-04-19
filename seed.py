@@ -1,6 +1,7 @@
 from database import db, Book
 import csv
-
+app = Flask(__name__)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 class Seed:
     def __init__(self):
         db.create_all()
