@@ -9,7 +9,7 @@ class Seed:
         with open('data/tiki.csv', 'r') as file:
             reader = csv.reader(file)
             for row in reader:
-                print(row[2].strip())
+                print(row[0].strip())
                 book = Book(row[0].strip(), row[1].strip(), row[2].strip(), row[3].strip(), row[4].strip())
                 db.session.add(book)
                 db.session.commit()
