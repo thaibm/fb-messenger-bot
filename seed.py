@@ -7,9 +7,9 @@ class Seed:
 
     def make(self):
         with open('data/tiki-full.csv', 'r') as file:
-            reader = csv.DictReader(file)
+            reader = csv.reader(file)
             for row in reader:
-                print (row['name'], row['author'])
-                book = Book(row['name'], row['author'], row['categories'], row['url'], row['description'])
+                print(row[2].strip())
+                book = Book(row[2], row[4], row[3], row[0], row[1])
                 db.session.add(book)
                 db.session.commit()
