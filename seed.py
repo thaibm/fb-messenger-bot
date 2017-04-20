@@ -6,7 +6,7 @@ class Seed:
         db.create_all()
 
     def make(self):
-        with open('data/tiki-full.csv', 'r') as file:
+        with open('data/tiki.csv', 'r') as file:
             reader = csv.reader(file)
             for row in reader:
                 print(row[2].strip())
