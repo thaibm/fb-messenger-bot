@@ -14,7 +14,7 @@ class Book(db.Model):
     author = db.Column(db.String(255))
     category = db.Column(db.String(255))
     url = db.Column(db.String(255))
-    description = db.Column(db.String(255))
+    description = db.Column(db.Text(255))
     created_at = db.Column(db.Date, default=datetime.datetime.now())
     updated_at = db.Column(db.Date, onupdate=datetime.datetime.now())
 
