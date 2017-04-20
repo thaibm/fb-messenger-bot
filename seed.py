@@ -10,6 +10,6 @@ class Seed:
             reader = csv.reader(file)
             for row in reader:
                 print(row[2].strip())
-                book = Book(row[2].strip(), row[4].strip(), row[3].strip(), row[0].strip(), row[1].strip())
+                book = Book(row[0].strip(), row[1].strip(), row[2].strip(), row[3].strip(), row[4].strip())
                 db.session.add(book)
                 db.session.commit()
