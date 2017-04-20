@@ -6,7 +6,7 @@ class Seed:
         db.create_all()
 
     def make(self):
-        with open('data/tiki-full.csv') as file:
+        with open('data/test.csv', 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 print (row['name'], row['author'])
