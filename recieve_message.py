@@ -26,7 +26,8 @@ def recieve(data):
 
                     book = BookRecord.get(1)
                     # book = Book("Nhà giả kim", "Paulo", "", "", "")
-                    send_message(sender_id, book.name)
+                    name = ''.join(book.name)
+                    send_message(sender_id, name)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
