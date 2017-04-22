@@ -24,8 +24,8 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
 
-                    # book = BookRecord.get(0)
-                    book = Book("Nhà giả kim", "Paulo", "", "", "")
+                    book = BookRecord.get(0)
+                    # book = Book("Nhà giả kim", "Paulo", "", "", "")
                     send_message(sender_id, book.name)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
