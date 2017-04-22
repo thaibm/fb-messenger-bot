@@ -24,10 +24,12 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
 
-                    book = BookRecord.get(1)
-                    # book = Book("Nhà giả kim", "Paulo", "", "", "")
-                    name = ''.join(book.name)
-                    send_message(sender_id, name)
+                    if type(message_text) == int:
+                        book = BookRecord.get(message_text)
+                        name = ''.join(book.name)
+                        send_message(sender_id, name)
+                    else:
+                        send_message(sender_id, message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
