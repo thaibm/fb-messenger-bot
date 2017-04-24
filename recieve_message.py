@@ -23,9 +23,9 @@ def recieve(data):
                         "id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
-                    print(type(message_text))
-                    if type(message_text) == int:
-                        book = BookRecord.get(message_text)
+                    str = message_text.split()
+                    if type(str[0]) == int:
+                        book = BookRecord.get(str[0])
                         name = ''.join(book.name)
                         send_message(sender_id, name)
                     else:
