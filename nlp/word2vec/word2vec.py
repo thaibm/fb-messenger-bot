@@ -15,7 +15,7 @@ class MySentences(object):
                 yield line.split()
 
 
-sentences = MySentences('../data-filter/')  # a memory-friendly iterator
+sentences = MySentences('../data-filter/result/')  # a memory-friendly iterator
 model = gensim.models.Word2Vec(sentences, size= 300, min_count=2)
 model.train(sentences)
-model.wv.save_word2vec_format('vector', binary = False)
+model.wv.save_word2vec_format('vector.txt', binary = False)

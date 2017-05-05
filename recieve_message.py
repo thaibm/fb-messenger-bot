@@ -7,6 +7,7 @@ import requests
 from flask import Flask, request
 from database import db, Book
 from models.book import BookRecord
+from wmd.wmd import KNN
 
 def recieve(data):
 
@@ -23,13 +24,10 @@ def recieve(data):
                         "id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
-                    str = message_text.split()
-                    if type(str[0]) == int:
-                        book = BookRecord.get(str[0])
-                        name = ''.join(book.name)
-                        send_message(sender_id, name)
-                    else:
-                        send_message(sender_id, message_text)
+
+                    k_doc = KNN(5, message_text)
+                    book = BookRecord.get(k_doc[0])
+                    send_message(sender_id, book.name)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
