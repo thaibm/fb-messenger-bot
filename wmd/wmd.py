@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
 
-import os, gensim, glob, math, operator, re, string
-
+import os, glob, math, operator, re, string
+# import gensim
 import numpy as np
 from pyemd import emd
 from scipy.spatial.distance import cosine
@@ -10,21 +10,21 @@ from sklearn.metrics import euclidean_distances
 from sklearn.feature_extraction.text import CountVectorizer
 from collections import Counter
 
-wv = gensim.models.KeyedVectors.load_word2vec_format("../nlp/word2vec/vector.txt",
-                                                     binary=False)
-shape = wv.syn0.shape
-if not os.path.exists("data/embed_vn.dat"):
-    print("Caching word embeddings in memmapped format...")
-
-    fp = np.memmap("data/embed_vn.dat", dtype=np.double, mode='w+', shape=shape)
-    fp[:] = wv.syn0[:]
-    with open("data/embed_vn.vocab", "w", encoding='utf-8') as f:
-        for _, w in sorted((voc.index, word) for word, voc in wv.vocab.items()):
-            print(w, file=f)
-    del fp, wv
+# wv = gensim.models.KeyedVectors.load_word2vec_format("../nlp/word2vec/vector.txt",
+#                                                      binary=False)
+# shape = wv.syn0.shape
+# if not os.path.exists("data/embed_vn.dat"):
+#     print("Caching word embeddings in memmapped format...")
+#
+#     fp = np.memmap("data/embed_vn.dat", dtype=np.double, mode='w+', shape=shape)
+#     fp[:] = wv.syn0[:]
+#     with open("data/embed_vn.vocab", "w", encoding='utf-8') as f:
+#         for _, w in sorted((voc.index, word) for word, voc in wv.vocab.items()):
+#             print(w, file=f)
+#     del fp, wv
 
 global W, vocab_dict, stop_words
-
+shape = (11967, 300)
 W = np.memmap("data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
 with open("data/embed_vn.vocab", encoding='utf-8') as f:
     vocab_list = map(str.strip, f.readlines())
