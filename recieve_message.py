@@ -9,6 +9,7 @@ from database import db, Book
 from models.book import BookRecord
 from wmd.wmd import KNN
 
+
 def recieve(data):
 
     if data["object"] == "page":
