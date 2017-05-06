@@ -7,7 +7,7 @@ import requests
 from flask import Flask, request
 from database import db, Book
 from models.book import BookRecord
-from wmd.wmd import KNN
+# from wmd.wmd import KNN
 
 def recieve(data):
 
