@@ -12,5 +12,4 @@ Flask-SQLAlchemy==2.1
 psycopg2==2.6.1
 SQLAlchemy==1.0.12
 numpy==1.8.1
-scipy==0.14.0
 pyemd==0.4.3
