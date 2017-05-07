@@ -12,3 +12,6 @@ Flask-SQLAlchemy==2.1
 psycopg2==2.6.1
 SQLAlchemy==1.0.12
 pyemd==0.4.3
+scikit-learn
+scipy
+numpy
