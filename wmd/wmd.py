@@ -28,7 +28,7 @@ shape = (11967, 300)
 
 W = np.memmap("wmd/data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
 
-with open("data/embed_vn.vocab", encoding='utf-8') as f:
+with open("wmd/data/embed_vn.vocab", encoding='utf-8') as f:
     vocab_list = map(str.strip, f.readlines())
 vocab_dict = {w: k for k, w in enumerate(vocab_list)}
 
@@ -103,7 +103,7 @@ def get_Xd(document):
 def WCD(document):
     X1 = get_Xd(document)
 
-    if not os.path.exists("data/Xd.dat"):
+    if not os.path.exists("wmd/data/Xd.dat"):
         print("Caculate Xd.dat...")
 
         list_docs = []
@@ -118,22 +118,22 @@ def WCD(document):
         X_dict = []
         for i in range(0, len(list_docs)):
             X_dict.append(get_Xd(list_docs[i]))
-        fp = np.memmap("data/Xd.dat", dtype=np.double, mode='w+',
+        fp = np.memmap("wmd/data/Xd.dat", dtype=np.double, mode='w+',
                        shape=(len(list_docs), 300))
         fp[:] = X_dict[:]
 
-        with open("data/list_doc.vocab", "w", encoding='utf-8') as f:
+        with open("wmd/data/list_doc.vocab", "w", encoding='utf-8') as f:
             for doc in list_docs:
                 print(doc, file=f)
             del fp
 
     # with open("data/list_doc.vocab", encoding='utf-8') as f:
     #     doc_list = map(str.strip, f.readlines())
-    with open("data/list_doc.vocab", encoding='utf-8') as f:
+    with open("wmd/data/list_doc.vocab", encoding='utf-8') as f:
         list_docs = f.read().splitlines()
     doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 
-    X_matrix = np.memmap("data/Xd.dat", dtype=np.double, mode="r",
+    X_matrix = np.memmap("wmd/data/Xd.dat", dtype=np.double, mode="r",
                          shape=(len(list_docs), 300))
 
     temple = np.matrix(X_matrix) * (np.matrix(X1).transpose())
@@ -193,7 +193,7 @@ def KNN(k, input_doc):
     result = re.sub('[%s]' % punctuation, ' ', dataLower)
     wcd = WCD(result)
 
-    with open("data/list_doc.vocab", encoding='utf-8') as f:
+    with open("wmd/data/list_doc.vocab", encoding='utf-8') as f:
         list_docs = f.read().splitlines()
     doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 
