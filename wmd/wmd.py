@@ -219,7 +219,7 @@ def knn(k, input_doc):
 
 
 def main():
-    doc = "hoàng tử bé"
+    doc = "mẹ thể ép thuyết phục cynthia ulrich tobias sách tiếng việt sách kinh tế mẹ thể ép thuyết phục cẩm nang phát huy tối đa tiềm năng đứa trẻ cứng đầu thật dễ dàng thể đâu đứa trẻ cứng đầu thật khó thể trừng phạt đưa chúng khuôn khổ"
     t1 = time.time()
 
     doc_2 = "truyện rèn đức tính tốt tác giả sách tiếng việt sách văn học truyện ngắn tản văn 100 truyện rèn đức tính tốt 100 truyện rèn luyện đức tính tốt series 100 câu dạy bé trưởng thành giúp bé tăng phần thông minh thêm bước trưởng thành câu phần tiếp sức phát triển học rút câu giúp bé rèn luyện đức tính tốt yêu thương chia sẻ giúp đỡ lẫn nhường nhịn chân thành chăm kiên trì nỗ lực bé rèn luyện đức tính tốt bắt đầu câu nhỏ nghĩa mẹ"
