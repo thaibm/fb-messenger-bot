@@ -13,10 +13,10 @@ from collections import Counter
 # wv = gensim.models.KeyedVectors.load_word2vec_format("../nlp/word2vec/vector.txt",
 #                                                      binary=False)
 # shape = wv.syn0.shape
-# if not os.path.exists("data/embed_vn.dat"):
+# if not os.path.exists("data/embed_vn"):
 #     print("Caching word embeddings in memmapped format...")
 #
-#     fp = np.memmap("data/embed_vn.dat", dtype=np.double, mode='w+', shape=shape)
+#     fp = np.memmap("data/embed_vn", dtype=np.double, mode='w+', shape=shape)
 #     fp[:] = wv.syn0[:]
 #     with open("data/embed_vn.vocab", "w", encoding='utf-8') as f:
 #         for _, w in sorted((voc.index, word) for word, voc in wv.vocab.items()):
@@ -25,7 +25,7 @@ from collections import Counter
 
 global W, vocab_dict, stop_words
 shape = (11967, 300)
-W = np.memmap("data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
+W = np.memmap("data/embed_vn", dtype=np.double, mode="r", shape=shape)
 with open("data/embed_vn.vocab", encoding='utf-8') as f:
     vocab_list = map(str.strip, f.readlines())
 vocab_dict = {w: k for k, w in enumerate(vocab_list)}
@@ -101,7 +101,7 @@ def get_Xd(document):
 def WCD(document):
     X1 = get_Xd(document)
 
-    if not os.path.exists("data/Xd.dat"):
+    if not os.path.exists("data/Xd"):
         print("Caculate Xd...")
 
         list_docs = []
@@ -116,7 +116,7 @@ def WCD(document):
         X_dict = []
         for i in range(0, len(list_docs)):
             X_dict.append(get_Xd(list_docs[i]))
-        fp = np.memmap("data/Xd.dat", dtype=np.double, mode='w+',
+        fp = np.memmap("data/Xd", dtype=np.double, mode='w+',
                        shape=(len(list_docs), 300))
         fp[:] = X_dict[:]
 
@@ -131,7 +131,7 @@ def WCD(document):
         list_docs = f.read().splitlines()
     doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 
-    X_matrix = np.memmap("data/Xd.dat", dtype=np.double, mode="r",
+    X_matrix = np.memmap("data/Xd", dtype=np.double, mode="r",
                          shape=(len(list_docs), 300))
 
     temple = np.matrix(X_matrix) * (np.matrix(X1).transpose())
