@@ -219,7 +219,7 @@ def knn(k, input_doc):
 
 
 def main():
-    doc = "giáo phái đã gây nên vụ đầu độc kinh hoàng trong hệ thống xe điện ngầm ở Tokyo năm 1995 khiến 12 người thiệt mạng và hàng trăm người chịu những di chứng nặng nề về thể chất và tinh thần.,Khi giải thích ý đồ cuốn ,tiểu thuyết,, Haruki Murakami cho biết ông muốn cảnh báo mọi người về nguy cơ của chủ nghĩa chính thống và khuynh hướng xuất hiện các giáo phái trong bối cảnh khủng hoảng toàn cầu của thế giới hiện đại"
+    doc = "hoàng tử bé"
     t1 = time.time()
 
     doc_2 = "truyện rèn đức tính tốt tác giả sách tiếng việt sách văn học truyện ngắn tản văn 100 truyện rèn đức tính tốt 100 truyện rèn luyện đức tính tốt series 100 câu dạy bé trưởng thành giúp bé tăng phần thông minh thêm bước trưởng thành câu phần tiếp sức phát triển học rút câu giúp bé rèn luyện đức tính tốt yêu thương chia sẻ giúp đỡ lẫn nhường nhịn chân thành chăm kiên trì nỗ lực bé rèn luyện đức tính tốt bắt đầu câu nhỏ nghĩa mẹ"
