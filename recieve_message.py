@@ -26,11 +26,11 @@ def recieve(data):
                         "text"]  # the message's text
 
                     k_doc = knn(5, message_text)
-                    book = BookRecord.get(k_doc[0][0])
-                    book1 = BookRecord.get(k_doc[1][0])
-                    book2 = BookRecord.get(k_doc[2][0])
-                    book3 = BookRecord.get(k_doc[3][0])
-                    book4 = BookRecord.get(k_doc[4][0])
+                    book = BookRecord.get(k_doc[0][0] +1)
+                    book1 = BookRecord.get(k_doc[1][0]+1)
+                    book2 = BookRecord.get(k_doc[2][0]+1)
+                    book3 = BookRecord.get(k_doc[3][0]+1)
+                    book4 = BookRecord.get(k_doc[4][0]+1)
                     # book = BookRecord.get(50)
                     send_message(sender_id, book.name)
                     send_message(sender_id, book1.name)

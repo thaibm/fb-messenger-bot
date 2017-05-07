@@ -26,7 +26,7 @@ from sklearn.metrics import euclidean_distances
 #     del fp, wv
 
 shape = (11967, 300)
-path = "wmd/"
+path = ""
 W = np.memmap(path+"data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
 
 with open(path+"data/embed_vn.vocab", encoding='utf-8') as f:
@@ -224,7 +224,7 @@ def main():
 
     doc_2 = "truyện rèn đức tính tốt tác giả sách tiếng việt sách văn học truyện ngắn tản văn 100 truyện rèn đức tính tốt 100 truyện rèn luyện đức tính tốt series 100 câu dạy bé trưởng thành giúp bé tăng phần thông minh thêm bước trưởng thành câu phần tiếp sức phát triển học rút câu giúp bé rèn luyện đức tính tốt yêu thương chia sẻ giúp đỡ lẫn nhường nhịn chân thành chăm kiên trì nỗ lực bé rèn luyện đức tính tốt bắt đầu câu nhỏ nghĩa mẹ"
     doc_3 = "truyện ngắn việt nam kỷ 20 tập tác giả sách tiếng việt sách văn học văn học việt nam 100 truyện ngắn việt nam kỷ 20 tập tuyển tập 100 truyện ngắn việt nam kỷ 20 tập hợp bút truyện ngắn việt nam suốt kỷ bao biến thiên lịch sử bữa tiệc văn chương"
-    knn(5, doc)
+    print(knn(5, doc))
     print(time.time() - t1)
 
     # print(W[0][0])
