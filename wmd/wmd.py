@@ -26,25 +26,25 @@ from sklearn.metrics import euclidean_distances
 #     del fp, wv
 
 shape = (11967, 300)
-path = ""
-W = np.memmap("data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
+path = "wmd/"
+W = np.memmap(path+"data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
 
-with open("data/embed_vn.vocab", encoding='utf-8') as f:
+with open(path+"data/embed_vn.vocab", encoding='utf-8') as f:
     vocab_list = map(str.strip, f.readlines())
 vocab_dict = {w: k for k, w in enumerate(vocab_list)}
 
-with open("data/list_doc.vocab", encoding='utf-8') as f:
+with open(path+"data/list_doc.vocab", encoding='utf-8') as f:
     list_docs = f.read().splitlines()
 doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 # Get stop-words
 SW = set()
-for line in open('vnstopword.txt'):
+for line in open(path+'vnstopword.txt'):
     line = line.strip()
     if line != '':
         SW.add(line)
 stop_words = list(SW)
 
-x_matrix = np.memmap("data/Xd.dat", dtype=np.double, mode="r",
+x_matrix = np.memmap(path+"data/Xd.dat", dtype=np.double, mode="r",
                      shape=(len(list_docs), 300))
 
 
