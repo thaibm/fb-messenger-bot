@@ -27,7 +27,7 @@ def recieve(data):
 
                     # k_doc = KNN(5, message_text)
                     # book = BookRecord.get(k_doc[0][0])
-                    book = BookRecord.get(0)
+                    book = BookRecord.get(5)
                     send_message(sender_id, book.name)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
