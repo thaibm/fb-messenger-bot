@@ -26,7 +26,7 @@ from collections import Counter
 global W, vocab_dict, stop_words
 shape = (11967, 300)
 
-W = np.memmap("./data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
+W = np.memmap("wmd/data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
 
 with open("data/embed_vn.vocab", encoding='utf-8') as f:
     vocab_list = map(str.strip, f.readlines())
