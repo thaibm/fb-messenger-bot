@@ -7,7 +7,7 @@ import requests
 from flask import Flask, request
 from database import db, Book
 from models.book import BookRecord
-# from wmd.wmd import KNN
+from wmd.wmd import knn
 
 def recieve(data):
 
@@ -25,9 +25,9 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
 
-                    # k_doc = KNN(5, message_text)
-                    # book = BookRecord.get(k_doc[0][0])
-                    book = BookRecord.get(50)
+                    k_doc = knn(5, message_text)
+                    book = BookRecord.get(k_doc[0][0])
+                    # book = BookRecord.get(50)
                     send_message(sender_id, book.name)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
