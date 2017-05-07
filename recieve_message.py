@@ -25,18 +25,18 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
 
-                    k_doc = knn(5, message_text)
-                    book = BookRecord.get(k_doc[0][0])
-                    book1 = BookRecord.get(k_doc[1][0])
-                    book2 = BookRecord.get(k_doc[2][0])
-                    book3 = BookRecord.get(k_doc[3][0])
-                    book4 = BookRecord.get(k_doc[4][0])
-                    # book = BookRecord.get(50)
+                    # k_doc = knn(5, message_text)
+                    # book = BookRecord.get(k_doc[0][0])
+                    # book1 = BookRecord.get(k_doc[1][0])
+                    # book2 = BookRecord.get(k_doc[2][0])
+                    # book3 = BookRecord.get(k_doc[3][0])
+                    # book4 = BookRecord.get(k_doc[4][0])
+                    book = BookRecord.get(50)
                     send_message(sender_id, book.name)
-                    send_message(sender_id, book1.name)
-                    send_message(sender_id, book2.name)
-                    send_message(sender_id, book3.name)
-                    send_message(sender_id, book4.name)
+                    # send_message(sender_id, book1.name)
+                    # send_message(sender_id, book2.name)
+                    # send_message(sender_id, book3.name)
+                    # send_message(sender_id, book4.name)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
