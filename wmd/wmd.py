@@ -34,7 +34,7 @@ vocab_dict = {w: k for k, w in enumerate(vocab_list)}
 
 # Get stop-words
 SW = set()
-for line in open('vnstopword.txt'):
+for line in open('wmd/vnstopword.txt'):
     line = line.strip()
     if line != '':
         SW.add(line)
