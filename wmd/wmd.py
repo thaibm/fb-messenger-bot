@@ -13,12 +13,12 @@ from collections import Counter
 # wv = gensim.models.KeyedVectors.load_word2vec_format("../nlp/word2vec/vector.txt",
 #                                                      binary=False)
 # shape = wv.syn0.shape
-# if not os.path.exists("data/embed_vn"):
+# if not os.path.exists("data/embed_vn.dat"):
 #     print("Caching word embeddings in memmapped format...")
 #
-#     fp = np.memmap("data/embed_vn", dtype=np.double, mode='w+', shape=shape)
+#     fp = np.memmap("data/embed_vn.dat", dtype=np.double, mode='w+', shape=shape)
 #     fp[:] = wv.syn0[:]
-#     with open("data/embed_vn.vocab", "w", encoding='utf-8') as f:
+#     with open("data/embed_vn.dat.vocab", "w", encoding='utf-8') as f:
 #         for _, w in sorted((voc.index, word) for word, voc in wv.vocab.items()):
 #             print(w, file=f)
 #     del fp, wv
@@ -26,7 +26,8 @@ from collections import Counter
 global W, vocab_dict, stop_words
 shape = (11967, 300)
 
-W = np.memmap("data/embed_vn", dtype=np.double, mode="r", shape=shape)
+W = np.memmap("data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
+
 with open("data/embed_vn.vocab", encoding='utf-8') as f:
     vocab_list = map(str.strip, f.readlines())
 vocab_dict = {w: k for k, w in enumerate(vocab_list)}
@@ -102,8 +103,8 @@ def get_Xd(document):
 def WCD(document):
     X1 = get_Xd(document)
 
-    if not os.path.exists("data/Xd"):
-        print("Caculate Xd...")
+    if not os.path.exists("data/Xd.dat"):
+        print("Caculate Xd.dat...")
 
         list_docs = []
         path = "../nlp/data-filter/result/"
@@ -117,7 +118,7 @@ def WCD(document):
         X_dict = []
         for i in range(0, len(list_docs)):
             X_dict.append(get_Xd(list_docs[i]))
-        fp = np.memmap("data/Xd", dtype=np.double, mode='w+',
+        fp = np.memmap("data/Xd.dat", dtype=np.double, mode='w+',
                        shape=(len(list_docs), 300))
         fp[:] = X_dict[:]
 
@@ -132,7 +133,7 @@ def WCD(document):
         list_docs = f.read().splitlines()
     doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 
-    X_matrix = np.memmap("data/Xd", dtype=np.double, mode="r",
+    X_matrix = np.memmap("data/Xd.dat", dtype=np.double, mode="r",
                          shape=(len(list_docs), 300))
 
     temple = np.matrix(X_matrix) * (np.matrix(X1).transpose())
@@ -220,9 +221,9 @@ def KNN(k, input_doc):
 
 
 def main():
-    doc = "thật dễ dàng thể đâu đứa trẻ cứng đầu thật khó thể trừng phạt đưa chúng khuôn khổ thời điểm chúng tỏ khó bảo kiên chịu đứng thực thiết dễ khiến mẹ giáo viên cảm mệt mỏi căng thẳng nghiệp nuôi dạy đứa trẻ cá tính mạnh mẽ giờ bậc mẹ thể tin phép màu thật sách nhỏ sách cung cấp hy vọng đặt mục tiêu tầm tay mang luồng sinh khí gia đình giáo viên tác giả cynthia ulrich tobias giải thích rõ sách mẹ thể ép thuyết phục cách suy nghĩ đứa trẻ cứng đầu cách mẹ thầy thể khai thác tối đa kiến thức cung cấp hỗ trợ hướng phát triển toàn diện sách giúp nhìn thấu cách suy nghĩ trẻ cứng đầu hiểu lý lời học cách nhượng giữ uy quyền mẹ khám phá phương thức hiệu tạo động lực đứa cứng đầu hãy hàn gắn mối quan hệ giúp phát huy tính cách mạnh mẽ thành công mẹ thể ép thuyết phục"
-    KNN(5, doc)
-
+    # doc = "thật dễ dàng thể đâu đứa trẻ cứng đầu thật khó thể trừng phạt đưa chúng khuôn khổ thời điểm chúng tỏ khó bảo kiên chịu đứng thực thiết dễ khiến mẹ giáo viên cảm mệt mỏi căng thẳng nghiệp nuôi dạy đứa trẻ cá tính mạnh mẽ giờ bậc mẹ thể tin phép màu thật sách nhỏ sách cung cấp hy vọng đặt mục tiêu tầm tay mang luồng sinh khí gia đình giáo viên tác giả cynthia ulrich tobias giải thích rõ sách mẹ thể ép thuyết phục cách suy nghĩ đứa trẻ cứng đầu cách mẹ thầy thể khai thác tối đa kiến thức cung cấp hỗ trợ hướng phát triển toàn diện sách giúp nhìn thấu cách suy nghĩ trẻ cứng đầu hiểu lý lời học cách nhượng giữ uy quyền mẹ khám phá phương thức hiệu tạo động lực đứa cứng đầu hãy hàn gắn mối quan hệ giúp phát huy tính cách mạnh mẽ thành công mẹ thể ép thuyết phục"
+    # KNN(5, doc)
+    # print(W)
 
 if __name__ == '__main__':
     main()
