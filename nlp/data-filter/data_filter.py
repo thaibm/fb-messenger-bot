@@ -8,7 +8,7 @@ def removeStopwords(data, filename):
     # result after handle. Ex: result.txt
     output = open(filename, 'w', encoding='utf8')
     lines = data.split('\n')
-    # list of stopwords. Ex: vnstopword.txt
+    # list of stopwords. Ex: vn_stopword.txt
     fileStopword = open('stopwords', 'r', encoding='utf8')
     listStopword = fileStopword.read().split('\n')
     for line in lines:
@@ -36,6 +36,6 @@ path = '../'
 for filename in glob.glob(os.path.join(path, '*.txt')):
     result_name = re.sub(path, '', filename)
     result_name = re.sub('.uet', '', result_name)
-    destination = 'data-filter-2.txt'
+    destination = 'data_filter.txt'
     result = data_filter(filename)
     removeStopwords(result, destination)

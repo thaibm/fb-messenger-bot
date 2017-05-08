@@ -26,7 +26,7 @@ from sklearn.metrics import euclidean_distances
 #     del fp, wv
 
 shape = (11967, 300)
-path = ""
+path = "wmd/"
 W = np.memmap(path+"data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
 
 with open(path+"data/embed_vn.vocab", encoding='utf-8') as f:
@@ -38,7 +38,7 @@ with open(path+"data/list_doc.vocab", encoding='utf-8') as f:
 doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 # Get stop-words
 SW = set()
-for line in open(path+'vnstopword.txt'):
+for line in open(path+'vn_stopword.txt'):
     line = line.strip()
     if line != '':
         SW.add(line)
@@ -195,8 +195,8 @@ def knn(k, input_doc):
     punctuation += '–“”…'
     # remove all punctuation
     result = re.sub('[%s]' % punctuation, ' ', data_lower)
-    result = " ".join([word for word in result.split() if word not in stop_words])
-
+    # result = " ".join([word for word in result.split() if word not in stop_words])
+    print(result)
     wcd = WCD(result)
 
     wmd_k_doc = {}
@@ -219,15 +219,13 @@ def knn(k, input_doc):
 
 
 def main():
-    doc = "mẹ thể ép thuyết phục cynthia ulrich tobias sách tiếng việt sách kinh tế mẹ thể ép thuyết phục cẩm nang phát huy tối đa tiềm năng đứa trẻ cứng đầu thật dễ dàng thể đâu đứa trẻ cứng đầu thật khó thể trừng phạt đưa chúng khuôn khổ"
-    t1 = time.time()
+    doc_1 = "Cẩm nang để phát huy tối đa tiềm năng của những đứa trẻ ""cứng đầu"",Thật dễ dàng để có thể nhận ra đâu là một đứa trẻ cứng đầu."
 
-    doc_2 = "truyện rèn đức tính tốt tác giả sách tiếng việt sách văn học truyện ngắn tản văn 100 truyện rèn đức tính tốt 100 truyện rèn luyện đức tính tốt series 100 câu dạy bé trưởng thành giúp bé tăng phần thông minh thêm bước trưởng thành câu phần tiếp sức phát triển học rút câu giúp bé rèn luyện đức tính tốt yêu thương chia sẻ giúp đỡ lẫn nhường nhịn chân thành chăm kiên trì nỗ lực bé rèn luyện đức tính tốt bắt đầu câu nhỏ nghĩa mẹ"
-    doc_3 = "truyện ngắn việt nam kỷ 20 tập tác giả sách tiếng việt sách văn học văn học việt nam 100 truyện ngắn việt nam kỷ 20 tập tuyển tập 100 truyện ngắn việt nam kỷ 20 tập hợp bút truyện ngắn việt nam suốt kỷ bao biến thiên lịch sử bữa tiệc văn chương"
-    print(knn(5, doc))
+    doc_2 = "Cha mẹ nào cũng mong muốn con mình có được tương lai hạnh phúc. Thời kì học sinh Tiểu học là giai đoạn quan trọng tạo cho trẻ nền tảng hạnh phúc sau này, bởi nó đánh dấu bước trưởng thành đầu tiên của trẻ trong cuộc đời."
+    t1 = time.time()
+    print(knn(10, doc_1))
     print(time.time() - t1)
 
-    # print(W[0][0])
 
 if __name__ == '__main__':
     main()
