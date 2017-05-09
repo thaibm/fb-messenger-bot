@@ -155,7 +155,7 @@ def send_list(recipient_id, message_text):
                         {
                             "title": book_2.name,
                             "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
-                            "subtitle": book_2.author+ "\n" + book_2.description,
+                            "subtitle": book_2.author + "\n" + book_2.description,
                             "default_action": {
                                 "type": "web_url",
                                 "url": book_2.url,
@@ -167,7 +167,7 @@ def send_list(recipient_id, message_text):
                         {
                             "title": book_3.name,
                             "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
-                            "subtitle": book_3.author+ "\n" + book_3.description,
+                            "subtitle": book_3.author + "\n" + book_3.description,
                             "default_action": {
                                 "type": "web_url",
                                 "url": book_3.url,
