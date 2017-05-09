@@ -142,14 +142,14 @@ def send_list(recipient_id, message_text):
                     "elements": [
                         {
                             "title": book_1.name,
-                            "image_url": "http://unisci24.com/data_images/wlls/8/196182-book.jpg",
+                            "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
                             "subtitle": book_1.author + "\n" + book_1.description,
                             "default_action": {
                                 "type": "web_url",
                                 "url": book_1.url,
                                 # "messenger_extensions": true,
                                 # "webview_height_ratio": "tall",
-                                "fallback_url": "https://tiki.vn/nha-sach-tiki"
+                                # "fallback_url": "https://tiki.vn/nha-sach-tiki"
                             }
                         },
                         {
@@ -161,7 +161,7 @@ def send_list(recipient_id, message_text):
                                 "url": book_2.url,
                                 # "messenger_extensions": true,
                                 "webview_height_ratio": "compact",
-                                "fallback_url": "https://tiki.vn/nha-sach-tiki"
+                                # "fallback_url": "https://tiki.vn/nha-sach-tiki"
                             }
                         },
                         {
@@ -173,7 +173,7 @@ def send_list(recipient_id, message_text):
                                 "url": book_3.url,
                                 # "messenger_extensions": true,
                                 "webview_height_ratio": "full",
-                                "fallback_url": "https://tiki.vn/nha-sach-tiki"
+                                # "fallback_url": "https://tiki.vn/nha-sach-tiki"
                             }
                         }
                     ]
