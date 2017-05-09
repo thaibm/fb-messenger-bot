@@ -29,8 +29,8 @@ def recieve(data):
                     # send_message(sender_id, message_text) #
 
                     # list_book = knn(5, message_text)
-                    list_book = [[1,2],[2,3],[3,4]]
-                    send_list(sender_id, list_book) #
+                    # list_book = [[1,2],[2,3],[3,4]]
+                    send_list(sender_id) #
 
                     # book = BookRecord.get_by_name(message_text)
                     # send_book(sender_id, book)
@@ -116,7 +116,7 @@ def send_book(recipient_id, book):
     log(r.text)
 
 
-def send_list(recipient_id, list):
+def send_list(recipient_id):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id,
                                                         text="Sent list book"))
     params = {
@@ -125,9 +125,10 @@ def send_list(recipient_id, list):
     headers = {
         "Content-Type": "application/json"
     }
-    book_1 = BookRecord.get(list[0][0]+1)
-    book_2 = BookRecord.get(list[1][0]+1)
-    book_3 = BookRecord.get(list[2][0]+1)
+    list_book = knn(5, message_text)
+    book_1 = BookRecord.get(list_book[0][0]+1)
+    book_2 = BookRecord.get(list_book[1][0]+1)
+    book_3 = BookRecord.get(list_book[2][0]+1)
     data = json.dumps({
         "recipient": {
             "id": recipient_id
