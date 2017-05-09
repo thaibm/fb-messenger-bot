@@ -218,15 +218,15 @@ def knn(k, input_doc):
     return wmd_k_doc[:k]
 
 
-def main():
-    doc_1 = "HOÀNG TỬ BÉ"
-
-    doc_2 = "Cha mẹ nào cũng mong muốn con mình có được tương lai hạnh phúc. Thời kì học sinh Tiểu học là giai đoạn quan trọng tạo cho trẻ nền tảng hạnh phúc sau này, bởi nó đánh dấu bước trưởng thành đầu tiên của trẻ trong cuộc đời."
-    t1 = time.time()
-    print(knn(5, doc_1))
-    # print(__rwmd(doc_1, doc_2))
-    print(time.time() - t1)
-
-
-if __name__ == '__main__':
-    main()
+# def main():
+#     doc_1 = "HOÀNG TỬ BÉ"
+#
+#     doc_2 = "Cha mẹ nào cũng mong muốn con mình có được tương lai hạnh phúc. Thời kì học sinh Tiểu học là giai đoạn quan trọng tạo cho trẻ nền tảng hạnh phúc sau này, bởi nó đánh dấu bước trưởng thành đầu tiên của trẻ trong cuộc đời."
+#     t1 = time.time()
+#     print(knn(5, doc_1))
+#     # print(__rwmd(doc_1, doc_2))
+#     print(time.time() - t1)
+#
+#
+# if __name__ == '__main__':
+#     main()

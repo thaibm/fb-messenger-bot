@@ -27,7 +27,7 @@ def recieve(data):
 
                     send_action(sender_id)
 
-                    # list_book = knn(5, message_text)
+                    list_book = knn(5, message_text)
 
                     # send_list(sender_id, list_book)
                     # book = BookRecord.get(k_doc[0][0] + 1)

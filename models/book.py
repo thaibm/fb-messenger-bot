@@ -8,6 +8,9 @@ class BookRecord:
         return book
     @staticmethod
     def get_by_name(name):
-        # name = name.lower()
+        _name = []
+        for e in name.split():
+            _name.append(e.capitalize())
+        name = " ".join(_name)
         book = db.session.query(Book).filter(Book.name.like('%'+name+'%')).first()
         return book
