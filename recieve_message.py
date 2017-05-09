@@ -22,14 +22,17 @@ def recieve(data):
                         "id"]  # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"][
                         "id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"]  # the message's text
+                    message_text = messaging_event["message"][
+                        "text"]  # the message's text
 
                     send_action(sender_id)
+
+                    send_list(sender_id, "list")
                     # k_doc = knn(5, message_text)
                     # book = BookRecord.get(k_doc[0][0] + 1)
-                    book = BookRecord.get_by_name(message_text)
+                    # book = BookRecord.get_by_name(message_text)
                     # send_message(sender_id, message_text)
-                    send_book(sender_id, book)
+                    # send_book(sender_id, book)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -126,7 +129,109 @@ def send_list(recipient_id, list):
             "id": recipient_id
         },
         "message": {
-            "text": "List book"
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "elements": [
+                        {
+                            "title": "Classic T-Shirt Collection",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",
+                            "subtitle": "See all our colors",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://peterssendreceiveapp.ngrok.io/shop_collection",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            },
+                            "buttons": [
+                                {
+                                    "title": "View",
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/collection",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Classic White T-Shirt",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
+                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Shop Now",
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Classic Blue T-Shirt",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Shop Now",
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Classic Black T-Shirt",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/black-t-shirt.png",
+                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=102",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Shop Now",
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=102",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                }
+                            ]
+                        }
+                    ],
+                    "buttons": [
+                        {
+                            "title": "View More",
+                            "type": "postback",
+                            "payload": "payload"
+                        }
+                    ]
+                }
+            }
         }
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages",
