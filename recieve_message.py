@@ -54,10 +54,10 @@ def send_message(recipient_id, book):
         "recipient": {
             "id": recipient_id
         },
+        "sender_action": "typing_on",
         "message": {
             "text": book.name + book.author
-        },
-        "sender_action": "typing_on"
+        }
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages",
                       params=params, headers=headers, data=data)
