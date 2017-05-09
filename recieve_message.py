@@ -27,8 +27,8 @@ def recieve(data):
 
                     send_action(sender_id)
 
-                    send_list(sender_id, "list")
-                    # k_doc = knn(5, message_text)
+                    list_book = knn(5, message_text)
+                    send_list(sender_id, list_book)
                     # book = BookRecord.get(k_doc[0][0] + 1)
                     # book = BookRecord.get_by_name(message_text)
                     # send_message(sender_id, message_text)
@@ -124,6 +124,9 @@ def send_list(recipient_id, list):
     headers = {
         "Content-Type": "application/json"
     }
+    book_1 = BookRecord.get(list[0][0]+1)
+    book_2 = BookRecord.get(list[1][0]+1)
+    book_3 = BookRecord.get(list[2][0]+1)
     data = json.dumps({
         "recipient": {
             "id": recipient_id
@@ -135,9 +138,9 @@ def send_list(recipient_id, list):
                     "template_type": "list",
                     "elements": [
                         {
-                            "title": "Classic T-Shirt Collection",
-                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",
-                            "subtitle": "See all our colors",
+                            "title": book_1.name,
+                            "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
+                            "subtitle": book_1.author,
                             # "default_action": {
                             #     "type": "web_url",
                             #     "url": "https://peterssendreceiveapp.ngrok.io/shop_collection",
@@ -147,9 +150,9 @@ def send_list(recipient_id, list):
                             # }
                         },
                         {
-                            "title": "Classic White T-Shirt",
-                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
-                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "title": book_2.name,
+                            "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
+                            "subtitle": book_2.author,
                             # "default_action": {
                             #     "type": "web_url",
                             #     "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
@@ -159,9 +162,9 @@ def send_list(recipient_id, list):
                             # }
                         },
                         {
-                            "title": "Classic Blue T-Shirt",
-                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
-                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "title": book_3.name,
+                            "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
+                            "subtitle": book_3.author,
                             # "default_action": {
                             #     "type": "web_url",
                             #     "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
