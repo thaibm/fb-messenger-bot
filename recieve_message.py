@@ -144,13 +144,13 @@ def send_list(recipient_id, message_text):
                             "title": book_1.name,
                             "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
                             "subtitle": book_1.author + "\n" + book_1.description,
-                            # "default_action": {
-                            #     "type": "web_url",
-                            #     "url": "https://peterssendreceiveapp.ngrok.io/shop_collection",
-                            #     # "messenger_extensions": true,
-                            #     "webview_height_ratio": "tall",
-                            #     "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            # }
+                            "default_action": {
+                                "type": "web_url",
+                                "url": book.url,
+                                # "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                # "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            }
                         },
                         {
                             "title": book_2.name,
