@@ -27,15 +27,8 @@ def recieve(data):
 
                     k_doc = knn(5, message_text)
                     book = BookRecord.get(k_doc[0][0] + 1)
-                    book1 = BookRecord.get(k_doc[1][0] + 1)
-                    book2 = BookRecord.get(k_doc[2][0] + 1)
-                    book3 = BookRecord.get(k_doc[3][0] + 1)
-                    book4 = BookRecord.get(k_doc[4][0] + 1)
                     send_message(sender_id, book)
-                    # send_message(sender_id, book1.name)
-                    # send_message(sender_id, book2.name)
-                    # send_message(sender_id, book3.name)
-                    # send_message(sender_id, book4.name)
+
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -62,44 +55,7 @@ def send_message(recipient_id, book):
             "id": recipient_id
         },
         "message": {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "list",
-                    "top_element_style": "compact",
-                    "elements": [
-                        {
-                            "title": book.name,
-                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
-                            "subtitle": "100% Cotton, 200% Comfortable",
-                            "default_action": {
-                                "type": "web_url",
-                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
-                                "messenger_extensions": "true",
-                                "webview_height_ratio": "tall",
-                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Buy",
-                                    "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
-                                    "messenger_extensions": "true",
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                                }
-                            ]
-                        }
-                    ],
-                    "buttons": [
-                        {
-                            "title": "View More",
-                            "type": "postback",
-                            "payload": "payload"
-                        }
-                    ]
-                }
-            }
+            "text": book.name + book.author
         },
         "sender_action": "typing_on"
     })
