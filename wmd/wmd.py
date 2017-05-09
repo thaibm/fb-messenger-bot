@@ -175,8 +175,6 @@ def __rwmd(docs_1, docs_2):
     v2 = np.ravel(v2)
     v2 = np.divide(v2, v2.sum())
 
-    print(matrix_1)
-    print(matrix_2)
     d1_ = euclidean_distances(matrix_1, matrix_2)
     d1_min = np.amin(d1_, axis=1)
 
@@ -196,7 +194,7 @@ def knn(k, input_doc):
     # remove all punctuation
     result = re.sub('[%s]' % punctuation, ' ', data_lower)
     # result = " ".join([word for word in result.split() if word not in stop_words])
-    print(result)
+    # print(result)
 
     wcd = WCD(result)
 
