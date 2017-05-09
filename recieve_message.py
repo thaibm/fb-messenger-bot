@@ -136,7 +136,7 @@ def send_list(recipient_id, list):
                     "elements": [
                         {
                             "title": "Classic T-Shirt Collection",
-                            # "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",
                             "subtitle": "See all our colors",
                             # "default_action": {
                             #     "type": "web_url",
@@ -148,7 +148,7 @@ def send_list(recipient_id, list):
                         },
                         {
                             "title": "Classic White T-Shirt",
-                            # "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
                             "subtitle": "100% Cotton, 200% Comfortable",
                             # "default_action": {
                             #     "type": "web_url",
@@ -160,7 +160,7 @@ def send_list(recipient_id, list):
                         },
                         {
                             "title": "Classic Blue T-Shirt",
-                            # "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
                             "subtitle": "100% Cotton, 200% Comfortable",
                             # "default_action": {
                             #     "type": "web_url",
