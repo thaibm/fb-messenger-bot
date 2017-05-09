@@ -215,6 +215,8 @@ def knn(k, input_doc):
 
     wmd_k_doc = sorted(wmd_k_doc.items(), key=operator.itemgetter(1))
 
+    del x_matrix, W
+
     return wmd_k_doc[:k]
 
 

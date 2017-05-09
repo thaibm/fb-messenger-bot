@@ -148,33 +148,33 @@ def send_list(recipient_id, message_text):
                                 "type": "web_url",
                                 "url": book_1.url,
                                 # "messenger_extensions": true,
-                                "webview_height_ratio": "tall",
-                                # "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                # "webview_height_ratio": "tall",
+                                "fallback_url": "https://tiki.vn/nha-sach-tiki"
                             }
                         },
                         {
                             "title": book_2.name,
                             "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
-                            "subtitle": book_2.author,
-                            # "default_action": {
-                            #     "type": "web_url",
-                            #     "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
-                            #     # "messenger_extensions": true,
-                            #     "webview_height_ratio": "tall",
-                            #     "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            # }
+                            "subtitle": book_2.author+ "\n" + book_2.description,
+                            "default_action": {
+                                "type": "web_url",
+                                "url": book_2.url,
+                                # "messenger_extensions": true,
+                                "webview_height_ratio": "compact",
+                                "fallback_url": "https://tiki.vn/nha-sach-tiki"
+                            }
                         },
                         {
                             "title": book_3.name,
                             "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
-                            "subtitle": book_3.author,
-                            # "default_action": {
-                            #     "type": "web_url",
-                            #     "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
-                            #     # "messenger_extensions": true,
-                            #     "webview_height_ratio": "tall",
-                            #     "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            # }
+                            "subtitle": book_3.author+ "\n" + book_3.description,
+                            "default_action": {
+                                "type": "web_url",
+                                "url": book_3.url,
+                                # "messenger_extensions": true,
+                                "webview_height_ratio": "full",
+                                "fallback_url": "https://tiki.vn/nha-sach-tiki"
+                            }
                         }
                     ]
                 }
