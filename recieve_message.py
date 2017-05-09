@@ -28,7 +28,8 @@ def recieve(data):
                     # send_action(sender_id)
                     # send_message(sender_id, message_text) #
 
-                    list_book = knn(5, message_text)
+                    # list_book = knn(5, message_text)
+                    list_book = [[1,2],[2,3],[3,4]]
                     send_list(sender_id, list_book) #
 
                     # book = BookRecord.get_by_name(message_text)
