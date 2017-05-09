@@ -144,17 +144,7 @@ def send_list(recipient_id, list):
                                 # "messenger_extensions": true,
                                 "webview_height_ratio": "tall",
                                 "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "View",
-                                    "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/collection",
-                                    # "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                                }
-                            ]
+                            }
                         },
                         {
                             "title": "Classic White T-Shirt",
@@ -166,17 +156,7 @@ def send_list(recipient_id, list):
                                 # "messenger_extensions": true,
                                 "webview_height_ratio": "tall",
                                 "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Shop Now",
-                                    "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
-                                    # "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                                }
-                            ]
+                            }
                         },
                         {
                             "title": "Classic Blue T-Shirt",
@@ -188,17 +168,7 @@ def send_list(recipient_id, list):
                                 # "messenger_extensions": true,
                                 "webview_height_ratio": "tall",
                                 "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Shop Now",
-                                    "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
-                                    # "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                                }
-                            ]
+                            }
                         }
                     ],
                     "buttons": [
