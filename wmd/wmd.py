@@ -26,8 +26,8 @@ from sklearn.metrics import euclidean_distances
 #     del fp, wv
 
 shape = (11832, 300)
-# path = "wmd/"
-path = ""
+path = "wmd/"
+# path = ""
 W = np.memmap(path+"data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
 
 with open(path+"data/embed_vn.vocab", encoding='utf-8') as f:
