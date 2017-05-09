@@ -9,8 +9,8 @@ from database import db, Book
 from models.book import BookRecord
 from wmd.wmd import knn
 
-def recieve(data):
 
+def recieve(data):
     if data["object"] == "page":
 
         for entry in data["entry"]:
@@ -26,11 +26,11 @@ def recieve(data):
                         "text"]  # the message's text
 
                     k_doc = knn(5, message_text)
-                    book = BookRecord.get(k_doc[0][0] +1)
-                    book1 = BookRecord.get(k_doc[1][0]+1)
-                    book2 = BookRecord.get(k_doc[2][0]+1)
-                    book3 = BookRecord.get(k_doc[3][0]+1)
-                    book4 = BookRecord.get(k_doc[4][0]+1)
+                    book = BookRecord.get(k_doc[0][0] + 1)
+                    book1 = BookRecord.get(k_doc[1][0] + 1)
+                    book2 = BookRecord.get(k_doc[2][0] + 1)
+                    book3 = BookRecord.get(k_doc[3][0] + 1)
+                    book4 = BookRecord.get(k_doc[4][0] + 1)
                     send_message(sender_id, book.name)
                     # send_message(sender_id, book1.name)
                     # send_message(sender_id, book2.name)
@@ -49,8 +49,8 @@ def recieve(data):
 
 
 def send_message(recipient_id, message_text):
-
-    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
+    log("sending message to {recipient}: {text}".format(recipient=recipient_id,
+                                                        text=message_text))
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
@@ -62,13 +62,119 @@ def send_message(recipient_id, message_text):
             "id": recipient_id
         },
         "message": {
-            "text": message_text
-        }
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": [
+                        {
+                            "title": "Classic White T-Shirt",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
+                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Buy",
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Classic Blue T-Shirt",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Buy",
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Classic Black T-Shirt",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/black-t-shirt.png",
+                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=102",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Buy",
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=102",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Classic Gray T-Shirt",
+                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/gray-t-shirt.png",
+                            "subtitle": "100% Cotton, 200% Comfortable",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Buy",
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=103",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                }
+                            ]
+                        }
+                    ],
+                    "buttons": [
+                        {
+                            "title": "View More",
+                            "type": "postback",
+                            "payload": "payload"
+                        }
+                    ]
+                }
+            }
+        },
+        "sender_action": "typing_on"
     })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages",
+                      params=params, headers=headers, data=data)
     if r.status_code != 200:
         log(r.status_code)
-        log(r.text)
+    log(r.text)
+
 
 def log(message):  # simple wrapper for logging to stdout on heroku
     print(str(message))
