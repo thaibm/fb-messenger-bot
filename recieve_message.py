@@ -25,11 +25,11 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
 
-                    send_action(sender_id)
-                    send_message(sender_id, message_text) # hàm này ko lặp
+                    # send_action(sender_id)
+                    # send_message(sender_id, message_text) #
 
                     list_book = knn(5, message_text)
-                    send_list(sender_id, list_book) # Dung ham nay se bị lặp
+                    send_list(sender_id, list_book) #
 
                     # book = BookRecord.get_by_name(message_text)
                     # send_book(sender_id, book)
