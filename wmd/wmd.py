@@ -86,12 +86,12 @@ x_matrix = np.memmap(path+"data/Xd.dat", dtype=np.double, mode="r",
                      shape=(len(list_docs), 300))
 
 # Get stop-words
-# SW = set()
-# for line in open(path + 'vn_stopword.txt'):
-#     line = line.strip()
-#     if line != '':
-#         SW.add(line)
-# stop_words = list(SW)
+SW = set()
+for line in open(path + 'vn_stopword.txt'):
+    line = line.strip()
+    if line != '':
+        SW.add(line)
+stop_words = list(SW)
 
 
 def WMD(docs_1, docs_2):
@@ -140,6 +140,7 @@ def WMD(docs_1, docs_2):
 
 
 def WCD(document):
+
     x1 = get_xd(document)
 
     temple = np.matrix(x_matrix) * (np.matrix(x1).transpose())
@@ -153,7 +154,6 @@ def WCD(document):
 
     results = sorted(results.items(), key=operator.itemgetter(1))
     return results
-
 
 def __rwmd(docs_1, docs_2):
     ds1 = docs_1.split()
@@ -186,49 +186,51 @@ def __rwmd(docs_1, docs_2):
 
 def knn(k, input_doc):
     # lowercase all the text on the file
-    data_lower = input_doc.lower()
+    # data_lower = input_doc.lower()
     # create new list punctuation
-    punctuation = re.sub('_', '', string.punctuation)
+    # punctuation = re.sub('_', '', string.punctuation)
     # then add some special characters in Vietnamese to this list
-    punctuation += '–“”…'
+    # punctuation += '–“”…'
     # remove all punctuation
-    result = re.sub('[%s]' % punctuation, ' ', data_lower)
-    # result = " ".join([word for word in result.split() if word not in stop_words])
+    # result = re.sub('[%s]' % punctuation, ' ', data_lower)
+    result = re.sub('\W+', ' ', input_doc.lower()).strip()
+    result = " ".join([word for word in result.split() if word not in stop_words and word in vocab_dict])
     # print(result)
+    if len(result) == 0:
+        return []
 
     wcd = WCD(result)
 
     wmd_k_doc = {}
     count = 1
-    # print(list_docs[wcd[0][0]])
-    max_rwmd = __rwmd(list_docs[wcd[0][0]], input_doc)
-    for i in range(0, len(wcd)):
-        if count <= k:
-            wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
-            rwmd_temp = __rwmd(list_docs[wcd[i][0]], input_doc)
-            max_rwmd = rwmd_temp if max_rwmd < rwmd_temp else max_rwmd
-        else:
-            _rwmd = __rwmd(list_docs[wcd[i][0]], input_doc)
-            if _rwmd < max_rwmd:
-                wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
-        count += 1
 
-    wmd_k_doc = sorted(wmd_k_doc.items(), key=operator.itemgetter(1))
+    # # Lỗi từ đây
+    # min_rwmd = __rwmd(list_docs[wcd[0][0]], input_doc)
+    # for i in range(0, len(wcd)):
+    #     if count <= k:
+    #         wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
+    #         rwmd_temp = __rwmd(list_docs[wcd[i][0]], input_doc)
+    #         min_rwmd = rwmd_temp if min_rwmd > rwmd_temp else min_rwmd
+    #     else:
+    #         _rwmd = __rwmd(list_docs[wcd[i][0]], input_doc)
+    #         if _rwmd < min_rwmd:
+    #             wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
+    #     count += 1
+    #
+    # wmd_k_doc = sorted(wmd_k_doc.items(), key=operator.itemgetter(1))
+    #
+    # return wmd_k_doc[:k]
+    return wcd[:k]
 
-    del x_matrix, W
+def main():
+    doc_1 = "mẹ không thể ép con thuyết phục cynthia ulrich tobias sách tiếng việt sách kinh tế mẹ không thể ép con thuyết phục cẩm nang phát huy tối đa tiềm năng đứa trẻ cứng đầu thật dễ dàng nhận ra đâu đứa trẻ cứng đầu thật khó trừng phạt đưa chúng khuôn khổ thời điểm chúng tỏ khó bảo kiên quyết chịu người lớn cho rằng đứng thực thiết dễ khiến cha mẹ giáo viên cảm thấy mệt mỏi căng thẳng sự nghiệp nuôi dạy đứa trẻ cá tính mạnh mẽ giờ đây bậc cha mẹ tin phép màu thật sách nhỏ sách cung cấp hy vọng đặt mục tiêu tầm tay mang luồng sinh khí gia đình giáo viên tác giả cynthia ulrich tobias giải thích rõ sách mẹ không thể ép thuyết phục cách suy nghĩ đứa trẻ cứng đầu cách cha mẹ thầy cô khai thác tối đa kiến thức cung cấp hỗ trợ hướng phát triển toàn diện sách giúp nhìn thấu cách suy nghĩ trẻ cứng đầu hiểu lý do tại sao lời học cách nhượng bộ giữ uy quyền cha mẹ khám phá phương thức hiệu quả tạo động lực đứa cứng đầu hãy hàn gắn mối quan hệ con cái giúp phát huy tính cách mạnh mẽ thành công mẹ không thể ép thuyết phục"
 
-    return wmd_k_doc[:k]
+    doc_2 = "120 món cá quỳnh chi sách tiếng việt sách thường thức đời sống 120 món cá món cá ngon không chỉ phụ thuộc kỹ thuật chế biến mà còn cách lựa chọn cá tẩm ướp cá nấu nướng kinh nghiệm nghệ thuật sách hướng dẫn cách chế biến 120 món cá món cá nướng cá hấp cá gỏi cá cá chiên xào cá kho cá nấu canh hướng dẫn cụ thể tỉ mỉ hy vọng sách giúp chế biến món cá ngon lạ miệng thết đãi gia đình bè bạn"
+    t1 = time.time()
+    print(knn(5, doc_1))
+    # print(__rwmd(doc_1, doc_2))
+    print(time.time() - t1)
 
 
-# def main():
-#     doc_1 = "HOÀNG TỬ BÉ"
-#
-#     doc_2 = "Cha mẹ nào cũng mong muốn con mình có được tương lai hạnh phúc. Thời kì học sinh Tiểu học là giai đoạn quan trọng tạo cho trẻ nền tảng hạnh phúc sau này, bởi nó đánh dấu bước trưởng thành đầu tiên của trẻ trong cuộc đời."
-#     t1 = time.time()
-#     print(knn(5, doc_1))
-#     # print(__rwmd(doc_1, doc_2))
-#     print(time.time() - t1)
-#
-#
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()

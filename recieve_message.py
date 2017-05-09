@@ -22,16 +22,20 @@ def recieve(data):
                         "id"]  # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"][
                         "id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"][
-                        "text"]  # the message's text
+                    print(messaging_event["message"])
+                    if "text" in messaging_event["message"]:
+                        message_text = messaging_event["message"][
+                            "text"]  # the message's text
 
-                    send_action(sender_id)
-                    # send_message(sender_id, message_text) #
+                        send_action(sender_id)
+                        # send_message(sender_id, message_text) #
+                        k = 3
+                        send_list(sender_id, message_text, k)  #
 
-                    send_list(sender_id, message_text)  #
-
-                    # book = BookRecord.get_by_name(message_text)
-                    # send_book(sender_id, book)
+                        # book = BookRecord.get_by_name(message_text)
+                        # send_book(sender_id, book)
+                    else:
+                        send_message(sender_id, "Hãy nhập thông sách bạn muốn tìm!")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -114,7 +118,7 @@ def send_book(recipient_id, book):
     log(r.text)
 
 
-def send_list(recipient_id, message_text):
+def send_list(recipient_id, message_text, k):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id,
                                                         text="Sent list book"))
     params = {
@@ -124,84 +128,76 @@ def send_list(recipient_id, message_text):
         "Content-Type": "application/json"
     }
 
-    # list_book = knn(5, message_text)
-    list_book = [[1, 2], [2, 3], [3, 4]]
-    book_1 = BookRecord.get(list_book[0][0] + 1)
-    book_2 = BookRecord.get(list_book[1][0] + 1)
-    book_3 = BookRecord.get(list_book[2][0] + 1)
+    list_book = knn(k, message_text)
+    # list_book = [[1, 2], [2, 3], [3, 4]]
 
-    data = json.dumps({
-        "recipient": {
-            "id": recipient_id
-        },
-        "message": {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "list",
-                    "top_element_style": "large",
-                    "elements": [
-                        {
-                            "title": book_1.name,
-                            "image_url": "http://www.impostorsyndrome.com/wp-content/uploads/2012/06/openbook.png",
-                            "subtitle": book_1.author + "\n" + book_1.description,
-                            "default_action": {
-                                "type": "web_url",
-                                "url": book_1.url,
-                                # "messenger_extensions": true,
-                                "webview_height_ratio": "tall",
-                                # "fallback_url": "https://tiki.vn/nha-sach-tiki"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Xem",
-                                    "type": "web_url",
-                                    "url": book_1.url,
-                                    "webview_height_ratio": "tall",
-                                }
-                            ]
-                        },
-                        {
-                            "title": book_2.name,
-                            "image_url": "http://www.impostorsyndrome.com/wp-content/uploads/2012/06/openbook.png",
-                            "subtitle": book_2.author + "\n" + book_2.description,
-                            "default_action": {
-                                "type": "web_url",
-                                "url": book_2.url,
-                                "webview_height_ratio": "compact",
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Xem",
-                                    "type": "web_url",
-                                    "url": book_2.url,
-                                    "webview_height_ratio": "tall",
-                                }
-                            ]
-                        },
-                        {
-                            "title": book_3.name,
-                            "image_url": "http://www.impostorsyndrome.com/wp-content/uploads/2012/06/openbook.png",
-                            "subtitle": book_3.author + "\n" + book_3.description,
-                            "default_action": {
-                                "type": "web_url",
-                                "url": book_3.url,
-                                "webview_height_ratio": "full",
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Xem",
-                                    "type": "web_url",
-                                    "url": book_2.url,
-                                    "webview_height_ratio": "tall",
-                                }
-                            ]
-                        }
-                    ]
+    if len(list_book) != 0:
+        books = []
+        for i in range(0, k):
+            books.append(BookRecord.get(list_book[i][0] + 1))
+
+        elements = [{
+            "title": "Sách Việt",
+            "image_url": "https://static.pexels.com/photos/213/blur-old-antique-book.jpg",
+            "subtitle": "Chia sẻ thành công, Kết nối tri thức và nâng cao giá trị tinh thần cho cuộc sống!",
+            "default_action": {
+                "type": "web_url",
+                "url": "https://www.facebook.com/S%C3%A1ch-Vi%E1%BB%87t-1483632485043890/?ref=aymt_homepage_panel",
+                "webview_height_ratio": "tall",
+            }
+        }]
+        for book in books[k - 3:k]:
+            e = {
+                "title": book.name,
+                "image_url": "http://www.impostorsyndrome.com/wp-content/uploads/2012/06/openbook.png",
+                "subtitle": book.author + "\n" + book.description,
+                "default_action": {
+                    "type": "web_url",
+                    "url": book.url,
+                    "webview_height_ratio": "tall",
+                },
+                "buttons": [
+                    {
+                        "title": "Xem",
+                        "type": "web_url",
+                        "url": book.url,
+                        "webview_height_ratio": "tall",
+                    }
+                ]
+            }
+            elements.append(e)
+
+        data = json.dumps({
+            "recipient": {
+                "id": recipient_id
+            },
+            "message": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "list",
+                        "top_element_style": "large",
+                        "elements": elements,
+                        # "buttons": [
+                        #     {
+                        #         "title": "Xem tiếp",
+                        #         "type": "postback",
+                        #         "payload": k + 3
+                        #     }
+                        # ]
+                    }
                 }
             }
-        }
-    })
+        })
+    else:
+        data = json.dumps({
+            "recipient": {
+                "id": recipient_id
+            },
+            "message": {
+                "text": "Hãy nhập thông sách bạn muốn tìm!"
+            }
+        })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages",
                       params=params, headers=headers, data=data)
     if r.status_code != 200:
