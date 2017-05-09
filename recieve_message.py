@@ -31,7 +31,7 @@ def recieve(data):
                     book2 = BookRecord.get(k_doc[2][0] + 1)
                     book3 = BookRecord.get(k_doc[3][0] + 1)
                     book4 = BookRecord.get(k_doc[4][0] + 1)
-                    send_message(sender_id, book.name)
+                    send_message(sender_id, book)
                     # send_message(sender_id, book1.name)
                     # send_message(sender_id, book2.name)
                     # send_message(sender_id, book3.name)
@@ -48,7 +48,7 @@ def recieve(data):
                     pass
 
 
-def send_message(recipient_id, message_text):
+def send_message(recipient_id, book):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id,
                                                         text=message_text))
     params = {
@@ -69,7 +69,7 @@ def send_message(recipient_id, message_text):
                     "top_element_style": "compact",
                     "elements": [
                         {
-                            "title": "Classic White T-Shirt",
+                            "title": book.name,
                             "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
                             "subtitle": "100% Cotton, 200% Comfortable",
                             "default_action": {
