@@ -170,13 +170,6 @@ def send_list(recipient_id, list):
                                 "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
                             }
                         }
-                    ],
-                    "buttons": [
-                        {
-                            "title": "View More",
-                            "type": "postback",
-                            "payload": "payload"
-                        }
                     ]
                 }
             }
