@@ -31,12 +31,11 @@ def recieve(data):
                     book2 = BookRecord.get(k_doc[2][0]+1)
                     book3 = BookRecord.get(k_doc[3][0]+1)
                     book4 = BookRecord.get(k_doc[4][0]+1)
-                    # book = BookRecord.get(50)
                     send_message(sender_id, book.name)
-                    send_message(sender_id, book1.name)
-                    send_message(sender_id, book2.name)
-                    send_message(sender_id, book3.name)
-                    send_message(sender_id, book4.name)
+                    # send_message(sender_id, book1.name)
+                    # send_message(sender_id, book2.name)
+                    # send_message(sender_id, book3.name)
+                    # send_message(sender_id, book4.name)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
