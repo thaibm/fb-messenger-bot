@@ -43,7 +43,7 @@ def recieve(data):
 
 def send_message(recipient_id, book):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id,
-                                                        text=message_text))
+                                                        text=book.name))
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
