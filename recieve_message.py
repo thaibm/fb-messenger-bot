@@ -30,7 +30,7 @@ def recieve(data):
 
                     # list_book = knn(5, message_text)
                     # list_book = [[1,2],[2,3],[3,4]]
-                    send_list(sender_id) #
+                    send_list(sender_id, message_text) #
 
                     # book = BookRecord.get_by_name(message_text)
                     # send_book(sender_id, book)
@@ -116,7 +116,7 @@ def send_book(recipient_id, book):
     log(r.text)
 
 
-def send_list(recipient_id):
+def send_list(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id,
                                                         text="Sent list book"))
     params = {
