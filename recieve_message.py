@@ -25,11 +25,9 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
 
-                    # send_action(sender_id)
+                    send_action(sender_id)
                     # send_message(sender_id, message_text) #
 
-                    # list_book = knn(5, message_text)
-                    # list_book = [[1,2],[2,3],[3,4]]
                     send_list(sender_id, message_text) #
 
                     # book = BookRecord.get_by_name(message_text)
@@ -125,10 +123,13 @@ def send_list(recipient_id, message_text):
     headers = {
         "Content-Type": "application/json"
     }
-    list_book = knn(5, message_text)
+
+    # list_book = knn(5, message_text)
+    list_book = [[1,2],[2,3],[3,4]]
     book_1 = BookRecord.get(list_book[0][0]+1)
     book_2 = BookRecord.get(list_book[1][0]+1)
     book_3 = BookRecord.get(list_book[2][0]+1)
+
     data = json.dumps({
         "recipient": {
             "id": recipient_id
