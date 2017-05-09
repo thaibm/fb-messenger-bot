@@ -25,8 +25,9 @@ def recieve(data):
                     message_text = messaging_event["message"][
                         "text"]  # the message's text
                     send_action(sender_id)
-                    k_doc = knn(5, message_text)
-                    book = BookRecord.get(k_doc[0][0] + 1)
+                    # k_doc = knn(5, message_text)
+                    # book = BookRecord.get(k_doc[0][0] + 1)
+                    book = BookRecord.get(99)
                     send_message(sender_id, book)
 
 
