@@ -28,7 +28,7 @@ def recieve(data):
                     send_action(sender_id)
                     # send_message(sender_id, message_text) #
 
-                    send_list(sender_id, message_text) #
+                    send_list(sender_id, message_text)  #
 
                     # book = BookRecord.get_by_name(message_text)
                     # send_book(sender_id, book)
@@ -125,10 +125,10 @@ def send_list(recipient_id, message_text):
     }
 
     # list_book = knn(5, message_text)
-    list_book = [[1,2],[2,3],[3,4]]
-    book_1 = BookRecord.get(list_book[0][0]+1)
-    book_2 = BookRecord.get(list_book[1][0]+1)
-    book_3 = BookRecord.get(list_book[2][0]+1)
+    list_book = [[1, 2], [2, 3], [3, 4]]
+    book_1 = BookRecord.get(list_book[0][0] + 1)
+    book_2 = BookRecord.get(list_book[1][0] + 1)
+    book_3 = BookRecord.get(list_book[2][0] + 1)
 
     data = json.dumps({
         "recipient": {
@@ -142,39 +142,59 @@ def send_list(recipient_id, message_text):
                     "elements": [
                         {
                             "title": book_1.name,
-                            "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
+                            "image_url": "http://www.impostorsyndrome.com/wp-content/uploads/2012/06/openbook.png",
                             "subtitle": book_1.author + "\n" + book_1.description,
                             "default_action": {
                                 "type": "web_url",
                                 "url": book_1.url,
                                 # "messenger_extensions": true,
-                                # "webview_height_ratio": "tall",
+                                "webview_height_ratio": "tall",
                                 # "fallback_url": "https://tiki.vn/nha-sach-tiki"
-                            }
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Xem",
+                                    "type": "web_url",
+                                    "url": book_1.url,
+                                    "webview_height_ratio": "tall",
+                                }
+                            ]
                         },
                         {
                             "title": book_2.name,
-                            "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
+                            "image_url": "http://www.impostorsyndrome.com/wp-content/uploads/2012/06/openbook.png",
                             "subtitle": book_2.author + "\n" + book_2.description,
                             "default_action": {
                                 "type": "web_url",
                                 "url": book_2.url,
-                                # "messenger_extensions": true,
                                 "webview_height_ratio": "compact",
-                                # "fallback_url": "https://tiki.vn/nha-sach-tiki"
-                            }
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Xem",
+                                    "type": "web_url",
+                                    "url": book_2.url,
+                                    "webview_height_ratio": "tall",
+                                }
+                            ]
                         },
                         {
                             "title": book_3.name,
-                            "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
+                            "image_url": "http://www.impostorsyndrome.com/wp-content/uploads/2012/06/openbook.png",
                             "subtitle": book_3.author + "\n" + book_3.description,
                             "default_action": {
                                 "type": "web_url",
                                 "url": book_3.url,
-                                # "messenger_extensions": true,
                                 "webview_height_ratio": "full",
-                                # "fallback_url": "https://tiki.vn/nha-sach-tiki"
-                            }
+                            },
+                            "buttons": [
+                                {
+                                    "title": "Xem",
+                                    "type": "web_url",
+                                    "url": book_2.url,
+                                    "webview_height_ratio": "tall",
+                                }
+                            ]
                         }
                     ]
                 }
