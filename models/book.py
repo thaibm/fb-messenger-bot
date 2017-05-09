@@ -8,6 +8,6 @@ class BookRecord:
         return book
     @staticmethod
     def get_by_name(name):
-        name = name.lower()
+        # name = name.lower()
         book = db.session.query(Book).filter(Book.name.like('%'+name+'%')).first()
         return book
