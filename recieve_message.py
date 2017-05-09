@@ -27,9 +27,10 @@ def recieve(data):
 
                     send_action(sender_id)
                     send_message(sender_id, message_text) # hàm này ko lặp
-                    
-                    list_book = knn(5, message_text)
-                    # send_list(sender_id, list_book) # Dung ham nay se bị lặp
+
+                    # list_book = knn(5, message_text)
+                    list_book = [[1, 2],[2,3],[3,4]]
+                    send_list(sender_id, list_book) # Dung ham nay se bị lặp
 
                     # book = BookRecord.get_by_name(message_text)
                     # send_book(sender_id, book)
