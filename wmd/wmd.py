@@ -86,12 +86,12 @@ x_matrix = np.memmap(path+"data/Xd.dat", dtype=np.double, mode="r",
                      shape=(len(list_docs), 300))
 
 # Get stop-words
-SW = set()
-for line in open(path + 'vn_stopword.txt'):
-    line = line.strip()
-    if line != '':
-        SW.add(line)
-stop_words = list(SW)
+# SW = set()
+# for line in open(path + 'vn_stopword.txt'):
+#     line = line.strip()
+#     if line != '':
+#         SW.add(line)
+# stop_words = list(SW)
 
 
 def WMD(docs_1, docs_2):
