@@ -29,10 +29,10 @@ def recieve(data):
 
                     list_book = knn(5, message_text)
 
-                    # send_list(sender_id, list_book)
+                    send_list(sender_id, list_book)
                     # book = BookRecord.get(k_doc[0][0] + 1)
                     # book = BookRecord.get_by_name(message_text)
-                    send_message(sender_id, message_text)
+                    # send_message(sender_id, message_text)
                     # send_book(sender_id, book)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
