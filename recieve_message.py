@@ -74,8 +74,7 @@ def send_message(recipient_id, book):
     data = json.dumps({
         "recipient": {
             "id": recipient_id
-        },
-        "sender_action": "typing_on",
+        }
         "message": {
             "text": book.name + book.author
         }
