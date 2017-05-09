@@ -28,7 +28,9 @@ def recieve(data):
                     send_action(sender_id)
 
                     list_book = knn(5, message_text)
-                    send_list(sender_id, list_book)
+                    print(list_book)
+                    print(type(list_book))
+                    # send_list(sender_id, list_book)
                     # book = BookRecord.get(k_doc[0][0] + 1)
                     # book = BookRecord.get_by_name(message_text)
                     # send_message(sender_id, message_text)
@@ -140,7 +142,7 @@ def send_list(recipient_id, list):
                         {
                             "title": book_1.name,
                             "image_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/1009-200.png",
-                            "subtitle": book_1.author,
+                            "subtitle": book_1.author + "\n" + book_1.description,
                             # "default_action": {
                             #     "type": "web_url",
                             #     "url": "https://peterssendreceiveapp.ngrok.io/shop_collection",
