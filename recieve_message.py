@@ -26,13 +26,12 @@ def recieve(data):
                         "text"]  # the message's text
 
                     send_action(sender_id)
-
+                    send_message(sender_id, message_text) # hàm này ko lặp
+                    
                     list_book = knn(5, message_text)
+                    # send_list(sender_id, list_book) # Dung ham nay se bị lặp
 
-                    send_list(sender_id, list_book)
-                    # book = BookRecord.get(k_doc[0][0] + 1)
                     # book = BookRecord.get_by_name(message_text)
-                    # send_message(sender_id, message_text)
                     # send_book(sender_id, book)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
