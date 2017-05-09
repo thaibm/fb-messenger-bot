@@ -142,6 +142,16 @@ def send_list(recipient_id, message_text):
                     "top_element_style": "large",
                     "elements": [
                         {
+                            "title": "Sách Việt",
+                            "image_url": "http://az616578.vo.msecnd.net/files/2016/07/22/6360482202963037341753542185_stack_of_books.jpg",
+                            "subtitle": "",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://www.facebook.com/S%C3%A1ch-Vi%E1%BB%87t-1483632485043890/?ref=aymt_homepage_panel",
+                                "webview_height_ratio": "tall",
+                            }
+                        },
+                        {
                             "title": book_1.name,
                             "image_url": "http://www.impostorsyndrome.com/wp-content/uploads/2012/06/openbook.png",
                             "subtitle": book_1.author + "\n" + book_1.description,
