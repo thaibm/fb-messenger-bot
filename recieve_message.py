@@ -139,6 +139,7 @@ def send_list(recipient_id, message_text):
                 "type": "template",
                 "payload": {
                     "template_type": "list",
+                    "top_element_style": "large",
                     "elements": [
                         {
                             "title": book_1.name,
