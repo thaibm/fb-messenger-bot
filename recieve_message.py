@@ -22,20 +22,19 @@ def recieve(data):
                         "id"]  # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"][
                         "id"]  # the recipient's ID, which should be your page's facebook ID
-                    print(messaging_event["message"])
+
                     if "text" in messaging_event["message"]:
                         message_text = messaging_event["message"][
                             "text"]  # the message's text
 
                         send_action(sender_id)
-                        # send_message(sender_id, message_text) #
-                        k = 3
-                        send_list(sender_id, message_text, k)  #
 
-                        # book = BookRecord.get_by_name(message_text)
-                        # send_book(sender_id, book)
+                        k = 3
+                        send_list(sender_id, message_text, k)
+
                     else:
-                        send_message(sender_id, "Hãy nhập thông sách bạn muốn tìm!")
+                        send_message(sender_id,
+                                     "Hãy nhập thông sách bạn muốn tìm!")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -43,8 +42,13 @@ def recieve(data):
                 if messaging_event.get("optin"):  # optin confirmation
                     pass
 
-                if messaging_event.get(
-                        "postback"):  # user clicked/tapped "postback" button in earlier message
+                if messaging_event.get("postback"):
+                    # user clicked/tapped "postback" button in earlier message
+                    payload = messaging_event["postback"]["payload"]
+                    sender_id = messaging_event["sender"]["id"]
+                    print("=========================")
+                    data = payload.split(";")
+                    send_list(sender_id, data[1], int(data[0]))
                     pass
 
 
@@ -129,7 +133,6 @@ def send_list(recipient_id, message_text, k):
     }
 
     list_book = knn(k, message_text)
-    # list_book = [[1, 2], [2, 3], [3, 4]]
 
     if len(list_book) != 0:
         books = []
@@ -178,13 +181,14 @@ def send_list(recipient_id, message_text, k):
                         "template_type": "list",
                         "top_element_style": "large",
                         "elements": elements,
-                        # "buttons": [
-                        #     {
-                        #         "title": "Xem tiếp",
-                        #         "type": "postback",
-                        #         "payload": k + 3
-                        #     }
-                        # ]
+                        "buttons": [
+                            {
+                                "title": "Xem thêm",
+                                "type": "postback",
+                                "payload": str(k+3)+";"+message_text,
+
+                            }
+                        ]
                     }
                 }
             }

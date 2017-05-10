@@ -140,7 +140,6 @@ def WMD(docs_1, docs_2):
 
 
 def WCD(document):
-
     x1 = get_xd(document)
 
     temple = np.matrix(x_matrix) * (np.matrix(x1).transpose())
@@ -185,17 +184,9 @@ def __rwmd(docs_1, docs_2):
 
 
 def knn(k, input_doc):
-    # lowercase all the text on the file
-    # data_lower = input_doc.lower()
-    # create new list punctuation
-    # punctuation = re.sub('_', '', string.punctuation)
-    # then add some special characters in Vietnamese to this list
-    # punctuation += '–“”…'
-    # remove all punctuation
-    # result = re.sub('[%s]' % punctuation, ' ', data_lower)
     result = re.sub('\W+', ' ', input_doc.lower()).strip()
     result = " ".join([word for word in result.split() if word not in stop_words and word in vocab_dict])
-    # print(result)
+
     if len(result) == 0:
         return []
 
@@ -204,8 +195,7 @@ def knn(k, input_doc):
     wmd_k_doc = {}
     count = 1
 
-    # # Lỗi từ đây
-    # min_rwmd = __rwmd(list_docs[wcd[0][0]], input_doc)
+    min_rwmd = __rwmd(list_docs[wcd[0][0]], input_doc)
     # for i in range(0, len(wcd)):
     #     if count <= k:
     #         wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
