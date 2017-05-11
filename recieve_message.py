@@ -2,12 +2,12 @@
 import os
 import sys
 import json
-
+import time
 import requests
 from flask import Flask, request
 from database import db, Book
 from models.book import BookRecord
-from wmd.wmd import knn
+from wmd.test import knn
 from models.postback import Postback
 
 def recieve(data):
@@ -30,7 +30,9 @@ def recieve(data):
                         send_action(sender_id)
 
                         k = 3
+                        t1 = time.time()
                         send_list(sender_id, message_text, k)
+                        print(time.time() - t1)
 
                     else:
                         send_message(sender_id,
@@ -204,6 +206,7 @@ def send_list(recipient_id, message_text, k):
         })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages",
                       params=params, headers=headers, data=data)
+
     if r.status_code != 200:
         log(r.status_code)
     log(r.text)

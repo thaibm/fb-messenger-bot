@@ -1,5 +1,8 @@
 *.pyc
 venv/
 wmd/data-old
-wmd/test.py
-nlp/
+nlp/data/
+nlp/data-filter/
+nlp/tiki.csv
+nlp/*.txt
+data/*.png

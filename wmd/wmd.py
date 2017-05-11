@@ -25,7 +25,7 @@ from sklearn.metrics import euclidean_distances
 #             print(w, file=f)
 #     del fp, wv
 
-shape = (18244, 600)
+shape = (17900, 600)
 size = 600
 path = "wmd/"
 # path = ""
@@ -183,28 +183,27 @@ def knn(k, input_doc):
 
     wcd = WCD(result)
 
-    if len(input_doc.split()) <= 100:
-        return wcd[:k]
 
-    else:
-        wmd_k_doc = {}
-        count = 1
+    # return wcd[:k]
 
-        min_rwmd = __rwmd(list_docs[wcd[0][0]], input_doc)
-        for i in range(0, len(wcd)):
-            if count <= k:
+    wmd_k_doc = {}
+    count = 1
+
+    min_rwmd = __rwmd(list_docs[wcd[0][0]], input_doc)
+    for i in range(0, len(wcd)):
+        if count <= k:
+            wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
+            rwmd_temp = __rwmd(list_docs[wcd[i][0]], input_doc)
+            min_rwmd = rwmd_temp if min_rwmd > rwmd_temp else min_rwmd
+        else:
+            _rwmd = __rwmd(list_docs[wcd[i][0]], input_doc)
+            if _rwmd < min_rwmd:
                 wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
-                rwmd_temp = __rwmd(list_docs[wcd[i][0]], input_doc)
-                min_rwmd = rwmd_temp if min_rwmd > rwmd_temp else min_rwmd
-            else:
-                _rwmd = __rwmd(list_docs[wcd[i][0]], input_doc)
-                if _rwmd < min_rwmd:
-                    wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
-            count += 1
+        count += 1
 
-        wmd_k_doc = sorted(wmd_k_doc.items(), key=operator.itemgetter(1))
+    wmd_k_doc = sorted(wmd_k_doc.items(), key=operator.itemgetter(1))
 
-        return wmd_k_doc[:k]
+    return wmd_k_doc[:k]
 
 
 def main():

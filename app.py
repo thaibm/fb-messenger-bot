@@ -5,7 +5,7 @@ import json
 import requests
 from flask import Flask, request
 from recieve_message import recieve
-from helpers.persistent_menu import send_persistent_menu
+# from helpers.persistent_menu import send_persistent_menu
 
 app = Flask(__name__)
 
