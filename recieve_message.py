@@ -46,7 +46,6 @@ def recieve(data):
                     # user clicked/tapped "postback" button in earlier message
                     payload = messaging_event["postback"]["payload"]
                     sender_id = messaging_event["sender"]["id"]
-                    print("=========================")
                     data = payload.split(";")
                     send_list(sender_id, data[1], int(data[0]))
                     pass

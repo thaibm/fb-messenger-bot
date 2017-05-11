@@ -16,6 +16,6 @@ class MySentences(object):
 
 
 sentences = MySentences('../data-filter/result/')  # a memory-friendly iterator
-model = gensim.models.Word2Vec(sentences, size= 300, min_count=2)
+model = gensim.models.Word2Vec(sentences, size= 600, min_count=2)
 model.train(sentences)
-model.wv.save_word2vec_format('vector', binary = False)
+model.wv.save_word2vec_format('vector.txt', binary = False)

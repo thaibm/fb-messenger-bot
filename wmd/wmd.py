@@ -12,7 +12,7 @@ import numpy as np
 from pyemd import emd
 from sklearn.metrics import euclidean_distances
 
-# wv = gensim.models.KeyedVectors.load_word2vec_format("../nlp/word2vec/vector",
+# wv = gensim.models.KeyedVectors.load_word2vec_format("../nlp/word2vec/vector.txt",
 #                                                      binary=False)
 # shape = wv.syn0.shape
 # if not os.path.exists("data/embed_vn.dat"):
@@ -25,7 +25,8 @@ from sklearn.metrics import euclidean_distances
 #             print(w, file=f)
 #     del fp, wv
 
-shape = (11832, 300)
+shape = (18150, 600)
+size = 600
 path = "wmd/"
 # path = ""
 W = np.memmap(path+"data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
@@ -59,8 +60,8 @@ def get_xd(document):
 #     print("Caculate Xd.dat...")
 #
 #     list_docs = []
-#     for filename in glob.glob(os.path.join("../nlp/data-filter/result/", '*.txt')):
-#         for line in open(filename, encoding='utf-8'):
+#     with open("../nlp/data-filter/result/data_filter_sw.txt", "r") as filename:
+#         for line in filename:
 #             line = line.strip()
 #             if line != '':
 #                 list_docs.append(line)
@@ -70,7 +71,7 @@ def get_xd(document):
 #     for i in range(0, len(list_docs)):
 #         X_dict.append(get_xd(list_docs[i]))
 #     fp = np.memmap("data/Xd.dat", dtype=np.double, mode='w+',
-#                    shape=(len(list_docs), 300))
+#                    shape=(len(list_docs), size))
 #     fp[:] = X_dict[:]
 #
 #     with open("data/list_doc.vocab", "w", encoding='utf-8') as f:
@@ -83,7 +84,7 @@ with open(path+"data/list_doc.vocab", encoding='utf-8') as f:
 doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 
 x_matrix = np.memmap(path+"data/Xd.dat", dtype=np.double, mode="r",
-                     shape=(len(list_docs), 300))
+                     shape=(len(list_docs), size))
 
 # Get stop-words
 SW = set()
@@ -95,13 +96,10 @@ stop_words = list(SW)
 
 
 def WMD(docs_1, docs_2):
-    # t1 = time.time()
     ds1 = docs_1.split()
     ds2 = docs_2.split()
     list_doc_1 = [word for word in ds1 if word in vocab_dict]
     list_doc_2 = [word for word in ds2 if word in vocab_dict]
-    # print(time.time()-t1)
-    # t1 = time.time()
 
     vect_1 = Counter(list_doc_1)
     vect_2 = Counter(list_doc_2)
@@ -118,25 +116,18 @@ def WMD(docs_1, docs_2):
             v_2.append(vect_2[key])
         else:
             v_2.append(0)
-    # print(time.time()-t1)
-    # t1 = time.time()
 
     v_1 = np.ravel(v_1)
     v_1 = np.divide(v_1, v_1.sum())
     v_2 = np.ravel(v_2)
     v_2 = np.divide(v_2, v_2.sum())
-    # print(time.time()-t1)
-    # t1 = time.time()
 
     W_ = W[[vocab_dict[w] for w in vect]]
     D_ = euclidean_distances(W_)
     D_ = D_.astype(np.double)
-    # print(time.time()-t1)
-    # t1 = time.time()
-    _emd = emd(v_1, v_2, D_)
-    # print(time.time()-t1)
+    D_ /= D_.max()
 
-    return _emd
+    return emd(v_1, v_2, D_)
 
 
 def WCD(document):
@@ -185,40 +176,45 @@ def __rwmd(docs_1, docs_2):
 
 def knn(k, input_doc):
     result = re.sub('\W+', ' ', input_doc.lower()).strip()
-    result = " ".join([word for word in result.split() if word not in stop_words and word in vocab_dict])
+    result = " ".join([word for word in result.split() if word in vocab_dict])
 
     if len(result) == 0:
         return []
 
     wcd = WCD(result)
 
-    wmd_k_doc = {}
-    count = 1
+    if len(input_doc.split()) >= 20:
+        wmd_k_doc = {}
+        count = 1
 
-    min_rwmd = __rwmd(list_docs[wcd[0][0]], input_doc)
-    # for i in range(0, len(wcd)):
-    #     if count <= k:
-    #         wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
-    #         rwmd_temp = __rwmd(list_docs[wcd[i][0]], input_doc)
-    #         min_rwmd = rwmd_temp if min_rwmd > rwmd_temp else min_rwmd
-    #     else:
-    #         _rwmd = __rwmd(list_docs[wcd[i][0]], input_doc)
-    #         if _rwmd < min_rwmd:
-    #             wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
-    #     count += 1
-    #
-    # wmd_k_doc = sorted(wmd_k_doc.items(), key=operator.itemgetter(1))
-    #
-    # return wmd_k_doc[:k]
-    return wcd[:k]
+        min_rwmd = __rwmd(list_docs[wcd[0][0]], input_doc)
+        for i in range(0, len(wcd)):
+            if count <= k:
+                wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
+                rwmd_temp = __rwmd(list_docs[wcd[i][0]], input_doc)
+                min_rwmd = rwmd_temp if min_rwmd > rwmd_temp else min_rwmd
+            else:
+                _rwmd = __rwmd(list_docs[wcd[i][0]], input_doc)
+                if _rwmd < min_rwmd:
+                    wmd_k_doc[wcd[i][0]] = WMD(list_docs[wcd[i][0]], input_doc)
+            count += 1
+
+        wmd_k_doc = sorted(wmd_k_doc.items(), key=operator.itemgetter(1))
+
+        return wmd_k_doc[:k]
+    else:
+        return wcd[:k]
 
 def main():
-    doc_1 = "mẹ không thể ép con thuyết phục cynthia ulrich tobias sách tiếng việt sách kinh tế mẹ không thể ép con thuyết phục cẩm nang phát huy tối đa tiềm năng đứa trẻ cứng đầu thật dễ dàng nhận ra đâu đứa trẻ cứng đầu thật khó trừng phạt đưa chúng khuôn khổ thời điểm chúng tỏ khó bảo kiên quyết chịu người lớn cho rằng đứng thực thiết dễ khiến cha mẹ giáo viên cảm thấy mệt mỏi căng thẳng sự nghiệp nuôi dạy đứa trẻ cá tính mạnh mẽ giờ đây bậc cha mẹ tin phép màu thật sách nhỏ sách cung cấp hy vọng đặt mục tiêu tầm tay mang luồng sinh khí gia đình giáo viên tác giả cynthia ulrich tobias giải thích rõ sách mẹ không thể ép thuyết phục cách suy nghĩ đứa trẻ cứng đầu cách cha mẹ thầy cô khai thác tối đa kiến thức cung cấp hỗ trợ hướng phát triển toàn diện sách giúp nhìn thấu cách suy nghĩ trẻ cứng đầu hiểu lý do tại sao lời học cách nhượng bộ giữ uy quyền cha mẹ khám phá phương thức hiệu quả tạo động lực đứa cứng đầu hãy hàn gắn mối quan hệ con cái giúp phát huy tính cách mạnh mẽ thành công mẹ không thể ép thuyết phục"
+    d1 = "harry potter và đứa trẻ bị nguyền rủa rowling"
 
-    doc_2 = "120 món cá quỳnh chi sách tiếng việt sách thường thức đời sống 120 món cá món cá ngon không chỉ phụ thuộc kỹ thuật chế biến mà còn cách lựa chọn cá tẩm ướp cá nấu nướng kinh nghiệm nghệ thuật sách hướng dẫn cách chế biến 120 món cá món cá nướng cá hấp cá gỏi cá cá chiên xào cá kho cá nấu canh hướng dẫn cụ thể tỉ mỉ hy vọng sách giúp chế biến món cá ngon lạ miệng thết đãi gia đình bè bạn"
+    d2 = "gỏi salad và các món khai vị tái bản cẩm tuyết sách tiếng việt sách kinh tế gỏi salad và các món khai vị mục lục 1 salad rau củ xốt mayonnais 2 salad rau câu măng tây 3 salad nga 4 salad hải sản 5 salad heo quay 6 salad cà chua cá thu 7 salad tôm hấp tỏi 8 salad tôm cà ri 9 nghêu trộn măng tây với xốt mù tạt 10 salad chả chiên 50 bò bốp thấu 51 heo bốp thấu 52 bao tử bóp rau răm 53 bò nhúng giấm 54 tai mũi heo ngâm giấm 55 bò ngâm giấm 56 dồi thịt 57 giò thủ 58 chả lụa 59 jam bon 60 pa tê tư vấn gia chánh"
+
+    d3 = "harry potter và đứa trẻ bị nguyền rủa phần một và hai j k rowling jack thorne john tiffany sách tiếng việt sách văn học văn học nước ngoài harry potter và đứa trẻ bị nguyền rủa phần một và hai kịch bản harry potter và đứa trẻ bị nguyền rủa được viết dựa trên câu chuyện của j k rowling jack thorne và john tiffany từ những nhân vật quen thuộc trong bộ harry potter kịch bản nói về cuộc phiêu lưu của những hậu duệ sự can thiệp vào dòng thời gian đã gây ra những thay đổi không ngờ cho tương lai tưởng chừng đã yên ổn sau khi vắng bóng chúa tể voldermort"
     t1 = time.time()
-    print(knn(5, doc_1))
-    # print(__rwmd(doc_1, doc_2))
+    print(knn(20, d1))
+    # print(__rwmd(d1, d2))
+    print(WCD(d1)[:20])
     print(time.time() - t1)
 
 

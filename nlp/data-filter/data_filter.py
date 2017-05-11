@@ -17,26 +17,12 @@ def removeStopwords(data, filename):
 
         output.write(line + '\n')
 
-def data_filter(filename):
-    source = open(filename, 'r', encoding='utf-8')
-    data = source.read()
-    source.close()
-
-    # lowercase all the text on the file
-    dataLower = data.lower()
-    # create new list punctuation
-    punctuation = re.sub('_', '', string.punctuation)
-    # punctuation = string.punctuation
-    # then add some special characters in Vietnamese to this list
-    punctuation += '–“”…'
-    # remove all punctuation
-    result = re.sub('[%s]' % punctuation, ' ', dataLower)
+def data_filter(data):
+    result = re.sub('\W+', ' ', data.lower().strip())
     return result
 
-path = ''
-for filename in glob.glob(os.path.join(path, '*.csv.uet')):
-    result_name = re.sub(path, '', filename)
-    result_name = re.sub('.uet', '', result_name)
-    destination = 'result/data_filter.txt'
-    result = data_filter(filename)
-    removeStopwords(result, destination)
+desti_file = open("result/data_filter_sw.txt", "w")
+with open("tiki.csv", "r") as f:
+    for line in f:
+        result = data_filter(line)
+        desti_file.write(result + "\n")
