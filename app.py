@@ -5,6 +5,8 @@ import json
 import requests
 from flask import Flask, request
 from recieve_message import recieve
+from helpers.persistent_menu import send_persistent_menu
+
 app = Flask(__name__)
 
 
@@ -31,6 +33,11 @@ def webhook():
     recieve(data)
 
     return "ok", 200
+
+
+# @app.before_first_request
+# def send_menu():
+#     send_persistent_menu()
 
 
 def log(message):  # simple wrapper for logging to stdout on heroku

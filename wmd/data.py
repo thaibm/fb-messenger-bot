@@ -17,7 +17,6 @@ if not os.path.exists("data/embed_vn.dat"):
             print(w, file=f)
     del fp, wv
 
-# shape = (18150, 600)
 size = 600
 # path = "wmd/"
 path = ""

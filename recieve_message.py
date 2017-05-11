@@ -8,7 +8,7 @@ from flask import Flask, request
 from database import db, Book
 from models.book import BookRecord
 from wmd.wmd import knn
-
+from models.postback import Postback
 
 def recieve(data):
     if data["object"] == "page":
@@ -45,6 +45,7 @@ def recieve(data):
                 if messaging_event.get("postback"):
                     # user clicked/tapped "postback" button in earlier message
                     payload = messaging_event["postback"]["payload"]
+
                     sender_id = messaging_event["sender"]["id"]
                     data = payload.split(";")
                     send_list(sender_id, data[1], int(data[0]))

@@ -208,7 +208,7 @@ def knn(k, input_doc):
 
 
 def main():
-    d1 = "giết con chim nhại harper lee"
+    d1 = "giết con chim nhại"
 
     d2 = "gỏi salad và các món khai vị tái bản cẩm tuyết sách tiếng việt sách kinh tế gỏi salad và các món khai vị mục lục 1 salad rau củ xốt mayonnais 2 salad rau câu măng tây 3 salad nga 4 salad hải sản 5 salad heo quay 6 salad cà chua cá thu 7 salad tôm hấp tỏi 8 salad tôm cà ri 9 nghêu trộn măng tây với xốt mù tạt 10 salad chả chiên 50 bò bốp thấu 51 heo bốp thấu 52 bao tử bóp rau răm 53 bò nhúng giấm 54 tai mũi heo ngâm giấm 55 bò ngâm giấm 56 dồi thịt 57 giò thủ 58 chả lụa 59 jam bon 60 pa tê tư vấn gia chánh"
 
