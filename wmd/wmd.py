@@ -29,9 +29,10 @@ shape = (17900, 600)
 size = 600
 # path = "wmd/"
 path = ""
-W = np.memmap(path+"data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
+W = np.memmap(path + "data/embed_vn.dat", dtype=np.double, mode="r",
+              shape=shape)
 
-with open(path+"data/embed_vn.vocab", encoding='utf-8') as f:
+with open(path + "data/embed_vn.vocab", encoding='utf-8') as f:
     vocab_list = map(str.strip, f.readlines())
 vocab_dict = {w: k for k, w in enumerate(vocab_list)}
 
@@ -56,6 +57,7 @@ def get_xd(document):
     X = np.sum(input_vector, axis=0)
     return X
 
+
 # if not os.path.exists("data/Xd.dat"):
 #     print("Caculate Xd.dat...")
 #
@@ -79,16 +81,16 @@ def get_xd(document):
 #             print(doc, file=f)
 #     del fp
 
-with open(path+"data/list_doc.vocab", encoding='utf-8') as f:
+with open(path + "data/list_doc.vocab", encoding='utf-8') as f:
     list_docs = f.read().splitlines()
 doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 
-x_matrix = np.memmap(path+"data/Xd.dat", dtype=np.double, mode="r",
+x_matrix = np.memmap(path + "data/Xd.dat", dtype=np.double, mode="r",
                      shape=(len(list_docs), size))
 
 # Get stop-words
 SW = set()
-for line in open(path + 'vn_stopword.txt'):
+for line in open(path + 'vn_stopword.txt', encoding='utf-8'):
     line = line.strip()
     if line != '':
         SW.add(line)
@@ -145,6 +147,7 @@ def WCD(document):
     results = sorted(results.items(), key=operator.itemgetter(1))
     return results
 
+
 def __rwmd(docs_1, docs_2):
     ds1 = docs_1.split()
     ds2 = docs_2.split()
@@ -176,13 +179,19 @@ def __rwmd(docs_1, docs_2):
 
 def knn(k, input_doc):
     result = re.sub('\W+', ' ', input_doc.lower()).strip()
-    result = " ".join([word for word in result.split() if word in vocab_dict])
-
+    repl = ['muốn đọc sách của', 'thích đọc sách của', 'muốn sách của',
+            'thích sách của', 'có thể', 'được không', 'được không ạ',
+            'sách của', 'vài']
+    for element in repl:
+        result = result.replace(element, "")
+    print(result)
+    result = " ".join([word for word in result.split() if
+                       word in vocab_dict and word not in stop_words])
+    print(result)
     if len(result) == 0:
         return []
 
     wcd = WCD(result)
-
 
     # return wcd[:k]
 
@@ -207,15 +216,15 @@ def knn(k, input_doc):
 
 
 def main():
-    d1 = "bố già mario puzo"
+    d1 = "vậy thì bạn có thể gợi ý cho tôi vài cuốn sách của mario puzo được không? tôi muốn đọc sách của musso"
 
     d2 = "gỏi salad và các món khai vị tái bản cẩm tuyết sách tiếng việt sách kinh tế gỏi salad và các món khai vị mục lục 1 salad rau củ xốt mayonnais 2 salad rau câu măng tây 3 salad nga 4 salad hải sản 5 salad heo quay 6 salad cà chua cá thu 7 salad tôm hấp tỏi 8 salad tôm cà ri 9 nghêu trộn măng tây với xốt mù tạt 10 salad chả chiên 50 bò bốp thấu 51 heo bốp thấu 52 bao tử bóp rau răm 53 bò nhúng giấm 54 tai mũi heo ngâm giấm 55 bò ngâm giấm 56 dồi thịt 57 giò thủ 58 chả lụa 59 jam bon 60 pa tê tư vấn gia chánh"
 
     d3 = "harry potter và đứa trẻ bị nguyền rủa phần một và hai j k rowling jack thorne john tiffany sách tiếng việt sách văn học văn học nước ngoài harry potter và đứa trẻ bị nguyền rủa phần một và hai kịch bản harry potter và đứa trẻ bị nguyền rủa được viết dựa trên câu chuyện của j k rowling jack thorne và john tiffany từ những nhân vật quen thuộc trong bộ harry potter kịch bản nói về cuộc phiêu lưu của những hậu duệ sự can thiệp vào dòng thời gian đã gây ra những thay đổi không ngờ cho tương lai tưởng chừng đã yên ổn sau khi vắng bóng chúa tể voldermort"
     t1 = time.time()
     print(knn(5, d1))
-    # print(__rwmd(d1, d2))
-    print(WCD(d1)[:20])
+    # # print(__rwmd(d1, d2))
+    # print(WCD(d1)[:20])
     print(time.time() - t1)
 
 

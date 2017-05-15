@@ -29,9 +29,10 @@ shape = (17900, 600)
 size = 600
 path = "wmd/"
 # path = ""
-W = np.memmap(path+"data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
+W = np.memmap(path + "data/embed_vn.dat", dtype=np.double, mode="r",
+              shape=shape)
 
-with open(path+"data/embed_vn.vocab", encoding='utf-8') as f:
+with open(path + "data/embed_vn.vocab", encoding='utf-8') as f:
     vocab_list = map(str.strip, f.readlines())
 vocab_dict = {w: k for k, w in enumerate(vocab_list)}
 
@@ -56,6 +57,7 @@ def get_xd(document):
     X = np.sum(input_vector, axis=0)
     return X
 
+
 # if not os.path.exists("data/Xd.dat"):
 #     print("Caculate Xd.dat...")
 #
@@ -79,11 +81,11 @@ def get_xd(document):
 #             print(doc, file=f)
 #     del fp
 
-with open(path+"data/list_doc.vocab", encoding='utf-8') as f:
+with open(path + "data/list_doc.vocab", encoding='utf-8') as f:
     list_docs = f.read().splitlines()
 doc_dict = {doc: k for k, doc in enumerate(list_docs)}
 
-x_matrix = np.memmap(path+"data/Xd.dat", dtype=np.double, mode="r",
+x_matrix = np.memmap(path + "data/Xd.dat", dtype=np.double, mode="r",
                      shape=(len(list_docs), size))
 
 # Get stop-words
@@ -145,6 +147,7 @@ def WCD(document):
     results = sorted(results.items(), key=operator.itemgetter(1))
     return results
 
+
 def __rwmd(docs_1, docs_2):
     ds1 = docs_1.split()
     ds2 = docs_2.split()
@@ -176,13 +179,20 @@ def __rwmd(docs_1, docs_2):
 
 def knn(k, input_doc):
     result = re.sub('\W+', ' ', input_doc.lower()).strip()
-    result = " ".join([word for word in result.split() if word in vocab_dict])
+    repl = ['muốn đọc sách của nhà văn', 'muốn tìm sách của nhà văn',
+            'thích đọc sách của nhà văn', 'muốn sách của nhà văn',
+            'thích sách của nhà văn', 'muốn đọc sách của', 'muốn tìm sách của',
+            'thích đọc sách của', 'muốn sách của', 'thích sách của', 'có thể',
+            'được không', 'được không ạ', 'sách của', 'vài']
+    for element in repl:
+        result = result.replace(element, "")
+    result = " ".join([word for word in result.split() if
+                       word in vocab_dict and word not in stop_words])
 
     if len(result) == 0:
         return []
 
     wcd = WCD(result)
-
 
     return wcd[:k]
 
