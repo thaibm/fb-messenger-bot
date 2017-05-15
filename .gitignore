@@ -2,7 +2,8 @@
 venv/
 wmd/data-old
 nlp/data/
-nlp/data-filter/
-nlp/tiki.csv
+nlp/data-new/
+nlp/*.csv
 nlp/*.txt
+
 data/*.png

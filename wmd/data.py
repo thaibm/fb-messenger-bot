@@ -51,7 +51,7 @@ if not os.path.exists("data/Xd.dat"):
     print("Caculate Xd.dat...")
 
     list_docs = []
-    with open("../nlp/data/data_filter.txt", "r") as filename:
+    with open("../nlp/data-new/data_filter.txt", "r") as filename:
         for line in filename:
             line = line.strip()
             if line != '':

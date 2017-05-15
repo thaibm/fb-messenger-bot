@@ -21,13 +21,13 @@ class MySentences(object):
 
 
 
-desti_file = open("data/data_filter.txt", "w")
-with open("tiki.csv", "r") as f:
+desti_file = open("data-new/data_filter.txt", "w")
+with open("tiki-new.csv", "r") as f:
     for line in f:
         result = data_filter(line)
         desti_file.write(result + "\n")
 
-sentences = MySentences('data/')  # a memory-friendly iterator
-model = gensim.models.Word2Vec(sentences, size= 600, min_count=3)
-model.train(sentences)
-model.wv.save_word2vec_format('vector.txt', binary = False)
+# sentences = MySentences('data/')  # a memory-friendly iterator
+# model = gensim.models.Word2Vec(sentences, size= 50, min_count=3)
+# model.train(sentences)
+# model.wv.save_word2vec_format('vector_new.txt', binary = False)

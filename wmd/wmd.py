@@ -27,8 +27,8 @@ from sklearn.metrics import euclidean_distances
 
 shape = (17900, 600)
 size = 600
-path = "wmd/"
-# path = ""
+# path = "wmd/"
+path = ""
 W = np.memmap(path+"data/embed_vn.dat", dtype=np.double, mode="r", shape=shape)
 
 with open(path+"data/embed_vn.vocab", encoding='utf-8') as f:
@@ -207,13 +207,13 @@ def knn(k, input_doc):
 
 
 def main():
-    d1 = "giết con chim nhại"
+    d1 = "bố già mario puzo"
 
     d2 = "gỏi salad và các món khai vị tái bản cẩm tuyết sách tiếng việt sách kinh tế gỏi salad và các món khai vị mục lục 1 salad rau củ xốt mayonnais 2 salad rau câu măng tây 3 salad nga 4 salad hải sản 5 salad heo quay 6 salad cà chua cá thu 7 salad tôm hấp tỏi 8 salad tôm cà ri 9 nghêu trộn măng tây với xốt mù tạt 10 salad chả chiên 50 bò bốp thấu 51 heo bốp thấu 52 bao tử bóp rau răm 53 bò nhúng giấm 54 tai mũi heo ngâm giấm 55 bò ngâm giấm 56 dồi thịt 57 giò thủ 58 chả lụa 59 jam bon 60 pa tê tư vấn gia chánh"
 
     d3 = "harry potter và đứa trẻ bị nguyền rủa phần một và hai j k rowling jack thorne john tiffany sách tiếng việt sách văn học văn học nước ngoài harry potter và đứa trẻ bị nguyền rủa phần một và hai kịch bản harry potter và đứa trẻ bị nguyền rủa được viết dựa trên câu chuyện của j k rowling jack thorne và john tiffany từ những nhân vật quen thuộc trong bộ harry potter kịch bản nói về cuộc phiêu lưu của những hậu duệ sự can thiệp vào dòng thời gian đã gây ra những thay đổi không ngờ cho tương lai tưởng chừng đã yên ổn sau khi vắng bóng chúa tể voldermort"
     t1 = time.time()
-    print(knn(20, d1))
+    print(knn(5, d1))
     # print(__rwmd(d1, d2))
     print(WCD(d1)[:20])
     print(time.time() - t1)
