@@ -36,7 +36,7 @@ def recieve(data):
 
                     else:
                         send_message(sender_id,
-                                     "Hãy nhập thông sách bạn muốn tìm!")
+                                     "Hãy nhập thông tin cuốn sách bạn muốn tìm!")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass

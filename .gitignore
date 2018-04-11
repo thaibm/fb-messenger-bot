@@ -5,5 +5,5 @@ nlp/data/
 nlp/data-new/
 nlp/*.csv
 nlp/*.txt
-
+.idea/
 data/*.png

@@ -27,7 +27,7 @@ with open("tiki-new.csv", "r") as f:
         result = data_filter(line)
         desti_file.write(result + "\n")
 
-# sentences = MySentences('data/')  # a memory-friendly iterator
-# model = gensim.models.Word2Vec(sentences, size= 50, min_count=3)
-# model.train(sentences)
-# model.wv.save_word2vec_format('vector_new.txt', binary = False)
+sentences = MySentences('data/')  # a memory-friendly iterator
+model = gensim.models.Word2Vec(sentences, size=50, min_count=3)
+model.train(sentences)
+model.wv.save_word2vec_format('vector_new.txt', binary=False)
